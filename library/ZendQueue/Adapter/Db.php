@@ -28,21 +28,21 @@ namespace Zend\Queue\Adapter;
 use Zend\Queue\Queue,
     Zend\Queue\Exception as QueueException,
     Zend\Queue\Message,
-    Zend\DB as DB_ns,
-    Zend\DB\Adapter\AbstractAdapter as AbstractDBAdapter,
-    Zend\DB\Select;
+    Zend\Db as DB_ns,
+    Zend\Db\Adapter\AbstractAdapter as AbstractDBAdapter,
+    Zend\Db\Select;
 
 /**
  * Class for using connecting to a Zend_DB-based queuing system
  *
- * @uses       \Zend\DB\DB
- * @uses       \Zend\DB\Expr
- * @uses       \Zend\DB\Select
- * @uses       \Zend\DB\Adapter\AbstractAdapter
- * @uses       \Zend\DB\Table\AbstractRow
+ * @uses       \Zend\Db\Db
+ * @uses       \Zend\Db\Expr
+ * @uses       \Zend\Db\Select
+ * @uses       \Zend\Db\Adapter\AbstractAdapter
+ * @uses       \Zend\Db\Table\AbstractRow
  * @uses       \Zend\Queue\Adapter\AdapterAbstract
- * @uses       \Zend\Queue\Adapter\DB\Message
- * @uses       \Zend\Queue\Adapter\DB\Queue
+ * @uses       \Zend\Queue\Adapter\Db\Message
+ * @uses       \Zend\Queue\Adapter\Db\Queue
  * @uses       \Zend\Queue\Exception
  * @category   Zend
  * @package    Zend_Queue
@@ -50,20 +50,20 @@ use Zend\Queue\Queue,
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class DB extends AbstractAdapter
+class Db extends AbstractAdapter
 {
     /**
-     * @var \Zend\Queue\Adapter\DB\Queue
+     * @var \Zend\Queue\Adapter\Db\Queue
      */
     protected $_queueTable = null;
 
     /**
-     * @var \Zend\Queue\Adapter\DB\Message
+     * @var \Zend\Queue\Adapter\Db\Message
      */
     protected $_messageTable = null;
 
     /**
-     * @var \Zend\DB\Table\AbstractRow
+     * @var \Zend\Db\Table\AbstractRow
      */
     protected $_messageRow = null;
 
@@ -84,7 +84,7 @@ class DB extends AbstractAdapter
         }
 
         if (!is_bool($this->_options['options'][Select::FOR_UPDATE])) {
-            throw new QueueException('Options array item: \Zend\DB\Select::FOR_UPDATE must be boolean');
+            throw new QueueException('Options array item: \Zend\Db\Select::FOR_UPDATE must be boolean');
         }
 
         if (isset($this->_options['dbAdapter'])
@@ -94,11 +94,11 @@ class DB extends AbstractAdapter
             $db = $this->_initDBAdapter();
         }
 
-        $this->_queueTable = new DB\Queue(array(
+        $this->_queueTable = new Db\Queue(array(
             'db' => $db,
         ));
 
-        $this->_messageTable = new DB\Message(array(
+        $this->_messageTable = new Db\Message(array(
             'db' => $db,
         ));
 
@@ -109,7 +109,7 @@ class DB extends AbstractAdapter
      *
      * Throws an exception if the adapter cannot connect to DB.
      *
-     * @return \Zend\DB\Adapter\AbstractAdapter
+     * @return \Zend\Db\Adapter\AbstractAdapter
      * @throws \Zend\Queue\Exception
      */
     protected function _initDBAdapter()
@@ -139,7 +139,7 @@ class DB extends AbstractAdapter
         unset($options['type']);
 
         try {
-            $db = DB_ns\DB::factory($type, $options);
+            $db = DB_ns\Db::factory($type, $options);
         } catch (DB_ns\Exception $e) {
             throw new QueueException('Error connecting to database: ' . $e->getMessage(), $e->getCode(), $e);
         }
@@ -229,7 +229,7 @@ class DB extends AbstractAdapter
         }
         $queue = $list->current();
 
-        if ($queue instanceof \Zend\DB\Table\AbstractRow) {
+        if ($queue instanceof \Zend\Db\Table\AbstractRow) {
             try {
                 $queue->delete();
             } catch (\Exception $e) {

@@ -23,17 +23,17 @@
 /**
  * @namespace
  */
-namespace Zend\Queue\Adapter\DB;
+namespace Zend\Queue\Adapter\Db;
 
 /**
- * @uses       \Zend\DB\Table\AbstractTable
+ * @uses       \Zend\Db\Table\AbstractTable
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Message extends \Zend\DB\Table\AbstractTable
+class Message extends \Zend\Db\Table\AbstractTable
 {
     /**
      * @var string
