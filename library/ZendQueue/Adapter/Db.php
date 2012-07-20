@@ -8,14 +8,14 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Adapter;
+namespace ZendQueue\Adapter;
 
 use Zend\Db as DB_ns;
 use Zend\Db\Adapter\AbstractAdapter as AbstractDBAdapter;
 use Zend\Db\Select;
-use Zend\Queue\Exception;
-use Zend\Queue\Message;
-use Zend\Queue\Queue;
+use ZendQueue\Exception;
+use ZendQueue\Message;
+use ZendQueue\Queue;
 
 /**
  * Class for using connecting to a Zend_DB-based queuing system
@@ -27,12 +27,12 @@ use Zend\Queue\Queue;
 class Db extends AbstractAdapter
 {
     /**
-     * @var \Zend\Queue\Adapter\Db\Queue
+     * @var \ZendQueue\Adapter\Db\Queue
      */
     protected $_queueTable = null;
 
     /**
-     * @var \Zend\Queue\Adapter\Db\Message
+     * @var \ZendQueue\Adapter\Db\Message
      */
     protected $_messageTable = null;
 
@@ -45,7 +45,7 @@ class Db extends AbstractAdapter
      * Constructor
      *
      * @param  array|\Traversable $options
-     * @param  \Zend\Queue\Queue|null $queue
+     * @param  \ZendQueue\Queue|null $queue
      */
     public function __construct($options, Queue $queue = null)
     {
@@ -83,7 +83,7 @@ class Db extends AbstractAdapter
      * Throws an exception if the adapter cannot connect to DB.
      *
      * @return \Zend\Db\Adapter\AbstractAdapter
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     protected function _initDBAdapter()
     {
@@ -133,7 +133,7 @@ class Db extends AbstractAdapter
      *
      * @param  string $name
      * @return boolean
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function isExists($name)
     {
@@ -159,7 +159,7 @@ class Db extends AbstractAdapter
      * @param  string  $name    queue name
      * @param  integer $timeout default visibility timeout
      * @return boolean
-     * @throws \Zend\Queue\Exception - database error
+     * @throws \ZendQueue\Exception - database error
      */
     public function create($name, $timeout = null)
     {
@@ -189,7 +189,7 @@ class Db extends AbstractAdapter
      *
      * @param  string  $name queue name
      * @return boolean
-     * @throws \Zend\Queue\Exception - database error
+     * @throws \ZendQueue\Exception - database error
      */
     public function delete($name)
     {
@@ -224,7 +224,7 @@ class Db extends AbstractAdapter
      * to determine if the adapter supports this feature.
      *
      * @return array
-     * @throws \Zend\Queue\Exception - database error
+     * @throws \ZendQueue\Exception - database error
      */
     public function getQueues()
     {
@@ -244,9 +244,9 @@ class Db extends AbstractAdapter
     /**
      * Return the approximate number of messages in the queue
      *
-     * @param  \Zend\Queue\Queue $queue
+     * @param  \ZendQueue\Queue $queue
      * @return integer
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function count(Queue $queue = null)
     {
@@ -272,9 +272,9 @@ class Db extends AbstractAdapter
      * Send a message to the queue
      *
      * @param  string     $message Message to send to the active queue
-     * @param  \Zend\Queue\Queue $queue
-     * @return \Zend\Queue\Message\Message
-     * @throws \Zend\Queue\Exception - database error
+     * @param  \ZendQueue\Queue $queue
+     * @return \ZendQueue\Message\Message
+     * @throws \ZendQueue\Exception - database error
      */
     public function send($message, Queue $queue = null)
     {
@@ -323,9 +323,9 @@ class Db extends AbstractAdapter
      *
      * @param  integer    $maxMessages  Maximum number of messages to return
      * @param  integer    $timeout      Visibility timeout for these messages
-     * @param  \Zend\Queue\Queue $queue
-     * @return \Zend\Queue\Message\MessageIterator
-     * @throws \Zend\Queue\Exception - database error
+     * @param  \ZendQueue\Queue $queue
+     * @return \ZendQueue\Message\MessageIterator
+     * @throws \ZendQueue\Exception - database error
      */
     public function receive($maxMessages = null, $timeout = null, Queue $queue = null)
     {
@@ -404,7 +404,7 @@ class Db extends AbstractAdapter
      * Returns true if the message is deleted, false if the deletion is
      * unsuccessful.
      *
-     * @param  \Zend\Queue\Message\Message $message
+     * @param  \ZendQueue\Message\Message $message
      * @return boolean
      */
     public function deleteMessage(Message $message)
@@ -447,7 +447,7 @@ class Db extends AbstractAdapter
     }
 
     /********************************************************************
-     * Functions that are not part of the \Zend\Queue\Adapter\AdapterAbstract
+     * Functions that are not part of the \ZendQueue\Adapter\AdapterAbstract
      *********************************************************************/
     /**
      * Get the queue ID
@@ -456,7 +456,7 @@ class Db extends AbstractAdapter
      *
      * @param  string       $name
      * @return integer|null
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     protected function getQueueId($name)
     {

@@ -8,12 +8,12 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Adapter;
+namespace ZendQueue\Adapter;
 
-use Zend\Queue\Exception;
-use Zend\Queue\Message;
-use Zend\Queue\Queue;
-use Zend\Queue\Stomp\Client;
+use ZendQueue\Exception;
+use ZendQueue\Message;
+use ZendQueue\Queue;
+use ZendQueue\Stomp\Client;
 
 /**
  * Class for using Stomp to talk to an Stomp compliant server
@@ -29,7 +29,7 @@ class Activemq extends AbstractAdapter
     const DEFAULT_PORT   = 61613;
 
     /**
-     * @var \Zend\Queue\Stomp\Client
+     * @var \ZendQueue\Stomp\Client
      */
     private $_client = null;
 
@@ -42,7 +42,7 @@ class Activemq extends AbstractAdapter
      * Constructor
      *
      * @param  array|\Traversable $options An array having configuration data
-     * @param  \Zend\Queue\Queue The \Zend\Queue\Queue object that created this class
+     * @param  \ZendQueue\Queue The \ZendQueue\Queue object that created this class
      */
     public function __construct($options, Queue $queue = null)
     {
@@ -106,7 +106,7 @@ class Activemq extends AbstractAdapter
      * @param  string  $name    queue name
      * @param  integer $timeout default visibility timeout
      * @return void
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function create($name, $timeout=null)
     {
@@ -118,7 +118,7 @@ class Activemq extends AbstractAdapter
      *
      * @param  string $name queue name
      * @return void
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function delete($name)
     {
@@ -131,7 +131,7 @@ class Activemq extends AbstractAdapter
      * Returns true if the message is deleted, false if the deletion is
      * unsuccessful.
      *
-     * @param  \Zend\Queue\Message $message
+     * @param  \ZendQueue\Message $message
      * @return boolean
      */
     public function deleteMessage(Message $message)
@@ -149,7 +149,7 @@ class Activemq extends AbstractAdapter
      * Get an array of all available queues
      *
      * @return void
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function getQueues()
     {
@@ -159,7 +159,7 @@ class Activemq extends AbstractAdapter
     /**
      * Checks if the client is subscribed to the queue
      *
-     * @param  \Zend\Queue\Queue $queue
+     * @param  \ZendQueue\Queue $queue
      * @return boolean
      */
     protected function isSubscribed(Queue $queue)
@@ -170,7 +170,7 @@ class Activemq extends AbstractAdapter
     /**
      * Subscribes the client to the queue.
      *
-     * @param  \Zend\Queue\Queue $queue
+     * @param  \ZendQueue\Queue $queue
      * @return void
      */
     protected function subscribe(Queue $queue)
@@ -188,8 +188,8 @@ class Activemq extends AbstractAdapter
      *
      * @param  integer    $maxMessages
      * @param  integer    $timeout
-     * @param  \Zend\Queue\Queue $queue
-     * @return \Zend\Queue\Message\MessageIterator
+     * @param  \ZendQueue\Queue $queue
+     * @return \ZendQueue\Message\MessageIterator
      */
     public function receive($maxMessages=null, $timeout=null, Queue $queue=null)
     {
@@ -247,8 +247,8 @@ class Activemq extends AbstractAdapter
      * Push an element onto the end of the queue
      *
      * @param  string     $message message to send to the queue
-     * @param  \Zend\Queue\Queue $queue
-     * @return \Zend\Queue\Message\Message
+     * @param  \ZendQueue\Queue $queue
+     * @return \ZendQueue\Message\Message
      */
     public function send($message, Queue $queue=null)
     {
@@ -281,9 +281,9 @@ class Activemq extends AbstractAdapter
     /**
      * Returns the length of the queue
      *
-     * @param  \Zend\Queue\Queue $queue
+     * @param  \ZendQueue\Queue $queue
      * @return integer
-     * @throws \Zend\Queue\Exception (not supported)
+     * @throws \ZendQueue\Exception (not supported)
      */
     public function count(Queue $queue=null)
     {
@@ -295,7 +295,7 @@ class Activemq extends AbstractAdapter
      *
      * @param  string $name
      * @return boolean
-     * @throws \Zend\Queue\Exception (not supported)
+     * @throws \ZendQueue\Exception (not supported)
      */
     public function isExists($name)
     {

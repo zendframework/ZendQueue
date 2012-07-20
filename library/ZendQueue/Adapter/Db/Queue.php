@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Adapter\Db;
+namespace ZendQueue\Adapter\Db;
 
 use Zend\Db\Table\AbstractTable;
 

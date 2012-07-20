@@ -8,11 +8,11 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Stomp;
+namespace ZendQueueTest\Stomp;
 
-use Zend\Queue\Stomp\Client;
-use Zend\Queue\Stomp\Connection;
-use Zend\Queue\Stomp\Frame;
+use ZendQueue\Stomp\Client;
+use ZendQueue\Stomp\Connection;
+use ZendQueue\Stomp\Frame;
 use PHPUnit_Framework_TestCase as Testcase;
 
 /*

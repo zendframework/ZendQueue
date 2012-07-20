@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue;
+namespace ZendQueueTest;
 
 /*
  * The adapter test class provides a universal test class for all of the
@@ -42,7 +42,7 @@ class Queue1Test extends QueueBaseTest
             'name'      => 'queue1'
         );
 
-        $this->queue = new \Zend\Queue\Queue('ArrayAdapter', $this->config);
+        $this->queue = new \ZendQueue\Queue('ArrayAdapter', $this->config);
     }
 
     /**

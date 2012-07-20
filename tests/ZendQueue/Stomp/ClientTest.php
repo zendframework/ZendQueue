@@ -8,13 +8,13 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Stomp;
+namespace ZendQueueTest\Stomp;
 
-use Zend\Queue\Stomp\Client;
-use Zend\Queue\Stomp\Connection;
-use Zend\Queue\Stomp\Frame;
-use Zend\Queue\Stomp\StompFrame;
-use Zend\Queue\Stomp\StompConnection;
+use ZendQueue\Stomp\Client;
+use ZendQueue\Stomp\Connection;
+use ZendQueue\Stomp\Frame;
+use ZendQueue\Stomp\StompFrame;
+use ZendQueue\Stomp\StompConnection;
 
 /*
  * The adapter test class provides a universal test class for all of the
@@ -103,18 +103,18 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstruct()
     {
-        $client = new Client('tcp', 'localhost', '11232', '\ZendTest\Queue\Stomp\Mock');
+        $client = new Client('tcp', 'localhost', '11232', '\ZendQueueTest\Stomp\Mock');
         $this->assertTrue($client->getConnection() instanceof StompConnection);
     }
 
     public function testAddConnection()
     {
         $client = new Client();
-        $client->addConnection('tcp', 'localhost', '11232', '\ZendTest\Queue\Stomp\Mock');
+        $client->addConnection('tcp', 'localhost', '11232', '\ZendQueueTest\Stomp\Mock');
         $this->assertTrue($client->getConnection() instanceof StompConnection);
 
         $client = new Client();
-        $this->assertFalse($client->addConnection('tcp', 'localhost', 0, '\ZendTest\Queue\Stomp\Mock'));
+        $this->assertFalse($client->addConnection('tcp', 'localhost', 0, '\ZendQueueTest\Stomp\Mock'));
     }
 
     public function testGetAndSetConnection()
@@ -136,7 +136,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $frame->setBody('hello world');
 
         $client = new Client();
-        $client->addConnection('tcp', 'localhost', '11232', '\ZendTest\Queue\Stomp\Mock');
+        $client->addConnection('tcp', 'localhost', '11232', '\ZendQueueTest\Stomp\Mock');
 
         $client->send($frame);
         $this->assertTrue($client->canRead());
@@ -155,7 +155,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $frame->setBody('hello ' . Frame::END_OF_FRAME . ' world');
 
         $client = new Client();
-        $client->addConnection('tcp', 'localhost', '11232', '\ZendTest\Queue\Stomp\Mock');
+        $client->addConnection('tcp', 'localhost', '11232', '\ZendQueueTest\Stomp\Mock');
 
         $client->send($frame);
         $this->assertTrue($client->canRead());

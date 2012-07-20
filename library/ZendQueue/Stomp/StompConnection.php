@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Stomp;
+namespace ZendQueue\Stomp;
 
 /**
  * The Stomp client interacts with a Stomp server.
@@ -23,7 +23,7 @@ interface StompConnection
      * @param  string  $scheme ['tcp', 'udp']
      * @param  string  host
      * @param  integer port
-     * @param  string  class - create a connection with this class; class must support \Zend\Queue\Stomp\StompConnection
+     * @param  string  class - create a connection with this class; class must support \ZendQueue\Stomp\StompConnection
      * @return boolean
      */
     public function open($scheme, $host, $port);
@@ -38,7 +38,7 @@ interface StompConnection
      * Check whether we are connected to the server
      *
      * @return true
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function ping();
 
@@ -47,7 +47,7 @@ interface StompConnection
      *
      * example: $response = $client->write($frame)->read();
      *
-     * @param  \Zend\Queue\Stomp\StompFrame $frame
+     * @param  \ZendQueue\Stomp\StompFrame $frame
      * @return $this
      */
     public function write(StompFrame $frame);
@@ -60,18 +60,18 @@ interface StompConnection
     /**
      * reads in a frame from the socket or returns false.
      *
-     * @return \Zend\Queue\Stomp\Frame|false
-     * @throws \Zend\Queue\Exception
+     * @return \ZendQueue\Stomp\Frame|false
+     * @throws \ZendQueue\Exception
      */
     public function read();
 
     /**
      * Set the frame class to be used
      *
-     * This must be a \Zend\Queue\Stomp\StompFrame.
+     * This must be a \ZendQueue\Stomp\StompFrame.
      *
      * @param  string $class
-     * @return \Zend\Queue\Stomp\StompConnection
+     * @return \ZendQueue\Stomp\StompConnection
      */
     public function setFrameClass($class);
 
@@ -85,7 +85,7 @@ interface StompConnection
     /**
      * create an empty frame
      *
-     * @return \Zend\Queue\Stomp\StompFrame class
+     * @return \ZendQueue\Stomp\StompFrame class
      */
     public function createFrame();
 }

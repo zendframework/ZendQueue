@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Exception;
+namespace ZendQueue\Exception;
 
 /**
  * When unsupported method call, throw this exception

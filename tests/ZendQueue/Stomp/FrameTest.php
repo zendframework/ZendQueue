@@ -8,9 +8,9 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Stomp;
+namespace ZendQueueTest\Stomp;
 
-use Zend\Queue\Stomp;
+use ZendQueue\Stomp;
 
 /*
  * The adapter test class provides a universal test class for all of the

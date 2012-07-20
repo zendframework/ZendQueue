@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Exception;
+namespace ZendQueue\Exception;
 
 /**
  * Base exception interface

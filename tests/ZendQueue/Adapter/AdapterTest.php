@@ -8,12 +8,12 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Adapter;
+namespace ZendQueueTest\Adapter;
 
 use Zend\Queue;
 use Zend\Config;
-use Zend\Queue\Adapter;
-use Zend\Queue\Message;
+use ZendQueue\Adapter;
+use ZendQueue\Message;
 
 /*
  * The adapter test class provides a universal test class for all of the
@@ -48,7 +48,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->fail('You must overload this function: getAdapterName()');
 
-        // example for \Zend\Queue\Adatper\ArrayAdapter
+        // example for \ZendQueue\Adatper\ArrayAdapter
         return 'ArrayAdapter';
     }
 
@@ -63,7 +63,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
      */
     public function getAdapterFullName()
     {
-        return '\Zend\Queue\Adapter\\' . $this->getAdapterName();
+        return '\ZendQueue\Adapter\\' . $this->getAdapterName();
     }
 
     public function getTestConfig()
@@ -212,7 +212,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
     public function testZendQueueMessageTest()
     {
         $config = $this->getTestConfig();
-        $config['messageClass'] = '\ZendTest\Queue\Adapter\MessageClass';
+        $config['messageClass'] = '\ZendQueueTest\Adapter\MessageClass';
 
         if (!$queue = $this->createQueue(__FUNCTION__, $config)) {
             return;

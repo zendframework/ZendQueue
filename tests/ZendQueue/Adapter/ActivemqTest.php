@@ -8,9 +8,9 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Adapter;
+namespace ZendQueueTest\Adapter;
 
-use Zend\Queue\Adapter;
+use ZendQueue\Adapter;
 
 /*
  * The adapter test class provides a universal test class for all of the

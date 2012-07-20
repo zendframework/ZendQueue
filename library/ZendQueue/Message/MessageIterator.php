@@ -8,12 +8,12 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Message;
+namespace ZendQueue\Message;
 
 use Countable;
 use Iterator;
-use Zend\Queue\Exception;
-use Zend\Queue\Queue;
+use ZendQueue\Exception;
+use ZendQueue\Queue;
 
 /**
  * @category   Zend
@@ -31,7 +31,7 @@ class MessageIterator implements Countable, Iterator
 
      /**
      * Connected is true if we have a reference to a live
-     * \Zend\Queue\Adapter object.
+     * \ZendQueue\Adapter object.
      * This is false after the Message has been deserialized.
      *
      * @var boolean
@@ -39,25 +39,25 @@ class MessageIterator implements Countable, Iterator
     protected $_connected = true;
 
     /**
-     * \Zend\Queue\Adapter parent class or instance
+     * \ZendQueue\Adapter parent class or instance
      *
-     * @var \Zend\Queue\Adapter
+     * @var \ZendQueue\Adapter
      */
     protected $_queue = null;
 
     /**
-     * Name of the class of the \Zend\Queue\Adapter object.
+     * Name of the class of the \ZendQueue\Adapter object.
      *
      * @var string
      */
     protected $_queueClass = null;
 
     /**
-     * \Zend\Queue\Message\Message class name
+     * \ZendQueue\Message\Message class name
      *
      * @var string
      */
-    protected $_messageClass = '\Zend\Queue\Message\Message';
+    protected $_messageClass = '\ZendQueue\Message\Message';
 
      /**
      * MessageIterator pointer.
@@ -149,7 +149,7 @@ class MessageIterator implements Countable, Iterator
     /**
      * Returns the queue object, or null if this is disconnected message set
      *
-     * @return \Zend\Queue\Queue|null
+     * @return \ZendQueue\Queue|null
      */
     public function getQueue()
     {
@@ -160,9 +160,9 @@ class MessageIterator implements Countable, Iterator
      * Set the queue object, to re-establish a live connection
      * to the queue for a Message that has been de-serialized.
      *
-     * @param  \Zend\Queue\Adapter $queue
+     * @param  \ZendQueue\Adapter $queue
      * @return boolean
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function setQueue(Queue $queue)
     {
@@ -210,7 +210,7 @@ class MessageIterator implements Countable, Iterator
      * Similar to the current() function for arrays in PHP
      * Required by interface MessageIterator.
      *
-     * @return \Zend\Queue\Message current element from the collection
+     * @return \ZendQueue\Message current element from the collection
      */
     public function current()
     {

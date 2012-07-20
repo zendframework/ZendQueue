@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Message;
+namespace ZendQueueTest\Message;
 
 use Zend\Queue;
 
@@ -67,14 +67,14 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($this->options));
 
         foreach ($this->messages as $i => $message) {
-            $this->assertTrue($message instanceof \Zend\Queue\Message);
+            $this->assertTrue($message instanceof \ZendQueue\Message);
             $this->assertEquals('Hello world', $message->body);
         }
     }
 
     public function testConstruct()
     {
-        $this->assertTrue($this->messages instanceof \Zend\Queue\Message\MessageIterator);
+        $this->assertTrue($this->messages instanceof \ZendQueue\Message\MessageIterator);
 
         // parameter validation
         try {

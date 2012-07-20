@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Custom;
+namespace ZendQueueTest\Custom;
 
 /**
  * Class for custom messages
@@ -28,14 +28,14 @@ namespace ZendTest\Queue\Custom;
  * @package    Zend_Queue
  * @subpackage UnitTests
  */
-class Message extends \Zend\Queue\Message
+class Message extends \ZendQueue\Message
 {
     /**
      * We adjusted the constructor to accept both an array and an object.
      */
     public function __construct($mixed)
     {
-        // we still have to support the code in \Zend\Queue\Queue::receive that
+        // we still have to support the code in \ZendQueue\Queue::receive that
         // passes in an array
         if (is_array($mixed)) {
             parent::__construct($mixed);
@@ -90,7 +90,7 @@ class Message extends \Zend\Queue\Message
      *
      * @param boolean $throw defaults to true.  Throw a message if there is an error
      *
-     * @throws \Zend\Queue\Exception if not connected
+     * @throws \ZendQueue\Exception if not connected
      */
     public function delete($throw = true)
     {
@@ -99,7 +99,7 @@ class Message extends \Zend\Queue\Message
                 $this->getQueue()->deleteMessage($this);
             }
         } elseif ($throw) {
-            throw new \Zend\Queue\Exception('Disconnected from queue.  Cannot delete message from queue.');
+            throw new \ZendQueue\Exception('Disconnected from queue.  Cannot delete message from queue.');
         }
     }
 }

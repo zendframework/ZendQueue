@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Adapter;
+namespace ZendQueueTest\Adapter;
 
 /**
  * @category   Zend
@@ -16,6 +16,6 @@ namespace ZendTest\Queue\Adapter;
  * @subpackage UnitTests
  * @group      Zend_Queue
  */
-class MessageClass extends \Zend\Queue\Message
+class MessageClass extends \ZendQueue\Message
 {
 }

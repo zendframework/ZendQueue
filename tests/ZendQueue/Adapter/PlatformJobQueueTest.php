@@ -8,9 +8,9 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Adapter;
+namespace ZendQueueTest\Adapter;
 
-use Zend\Queue\Message;
+use ZendQueue\Message;
 
 /**
  * @category   Zend
@@ -61,7 +61,7 @@ class PlatformJobQueueTest extends AdapterTest
      */
     public function getAdapterFullName()
     {
-        return '\Zend\Queue\Adapter\\' . $this->getAdapterName();
+        return '\ZendQueue\Adapter\\' . $this->getAdapterName();
     }
 
     public function testFailedConstructor()
@@ -264,7 +264,7 @@ class PlatformJobQueueTest extends AdapterTest
         if (!$queue = $this->createQueue(__FUNCTION__)) {
             return;
         }
-        $this->assertTrue($queue instanceof \Zend\Queue\Queue);
+        $this->assertTrue($queue instanceof \ZendQueue\Queue);
 
         $initCount = $queue->count();
 

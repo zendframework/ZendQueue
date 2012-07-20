@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Exception;
+namespace ZendQueue\Exception;
 
 /**
  * This Exception will throw, when queue not found

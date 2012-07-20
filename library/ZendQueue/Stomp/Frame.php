@@ -8,9 +8,9 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Stomp;
+namespace ZendQueue\Stomp;
 
-use Zend\Queue\Exception;
+use ZendQueue\Exception;
 
 /**
  * This class represents a Stomp Frame
@@ -84,7 +84,7 @@ class Frame implements StompFrame
      *
      * @param boolean $auto
      * @return $this;
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function setAutoContentLength($auto)
     {
@@ -113,7 +113,7 @@ class Frame implements StompFrame
      *
      * @param array $headers
      * @return $this
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function setHeaders(array $headers)
     {
@@ -129,8 +129,8 @@ class Frame implements StompFrame
      *
      * @param  string $header
      * @param  string $value
-     * @return \Zend\Queue\Stomp\Frame
-     * @throws \Zend\Queue\Exception
+     * @return \ZendQueue\Stomp\Frame
+     * @throws \ZendQueue\Exception
      */
     public function setHeader($header, $value)
     {
@@ -154,7 +154,7 @@ class Frame implements StompFrame
      *
      * @param  string $header
      * @return string|false
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function getHeader($header)
     {
@@ -187,8 +187,8 @@ class Frame implements StompFrame
      * Set to null for no body.
      *
      * @param  string|null $body
-     * @return \Zend\Queue\Stomp\Frame
-     * @throws \Zend\Queue\Exception
+     * @return \ZendQueue\Stomp\Frame
+     * @throws \ZendQueue\Exception
      */
     public function setBody($body)
     {
@@ -218,8 +218,8 @@ class Frame implements StompFrame
      * Set the body for this frame
      *
      * @param  string|null
-     * @return \Zend\Queue\Stomp\Frame
-     * @throws \Zend\Queue\Exception
+     * @return \ZendQueue\Stomp\Frame
+     * @throws \ZendQueue\Exception
      */
     public function setCommand($command)
     {
@@ -235,7 +235,7 @@ class Frame implements StompFrame
      * Takes the current parameters and returns a Stomp Frame
      *
      * @return string
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function toFrame()
     {
@@ -333,7 +333,7 @@ class Frame implements StompFrame
      *
      * @param string $frame - a stomp frame
      * @return string
-     * @throws \Zend\Queue\Exception when the body is badly formatted
+     * @throws \ZendQueue\Exception when the body is badly formatted
      */
     public static function extractBody($frame)
     {

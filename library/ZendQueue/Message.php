@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue;
+namespace ZendQueue;
 
 /**
  * Class for managing queue messages
@@ -28,7 +28,7 @@ class Message
 
      /**
      * Connected is true if we have a reference to a live
-     * \Zend\Queue\Adapter object.
+     * \ZendQueue\Adapter object.
      * This is false after the Message has been deserialized.
      *
      * @var boolean
@@ -36,14 +36,14 @@ class Message
     protected $_connected = true;
 
     /**
-     * \Zend\Queue\Queue parent class or instance
+     * \ZendQueue\Queue parent class or instance
      *
-     * @var \Zend\Queue\Queue
+     * @var \ZendQueue\Queue
      */
     protected $_queue = null;
 
     /**
-     * Name of the class of the \Zend\Queue\Queue
+     * Name of the class of the \ZendQueue\Queue
      *
      * @var string
      */
@@ -53,7 +53,7 @@ class Message
      * Constructor
      *
      * @param  array $options
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function __construct(array $options = array())
     {
@@ -68,7 +68,7 @@ class Message
                 }
 
                 throw new Exception\InvalidArgumentException(
-                    '$options[\'queue\'] = ' . $result . ': must be instanceof \Zend\Queue\Queue'
+                    '$options[\'queue\'] = ' . $result . ': must be instanceof \ZendQueue\Queue'
                 );
             }
         }
@@ -85,7 +85,7 @@ class Message
      *
      * @param  string $key The user-specified key name.
      * @return string      The corresponding key value.
-     * @throws \Zend\Queue\Exception if the $key is not a column in the message.
+     * @throws \ZendQueue\Exception if the $key is not a column in the message.
      */
     public function __get($key)
     {
@@ -101,7 +101,7 @@ class Message
      * @param  string $key   The message key.
      * @param  mixed  $value The value for the property.
      * @return void
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function __set($key, $value)
     {
@@ -151,7 +151,7 @@ class Message
      /**
      * Returns the queue object, or null if this is disconnected message
      *
-     * @return \Zend\Queue\Queue|null
+     * @return \ZendQueue\Queue|null
      */
     public function getQueue()
     {
@@ -162,7 +162,7 @@ class Message
      * Set the queue object, to re-establish a live connection
      * to the queue for a Message that has been de-serialized.
      *
-     * @param  \Zend\Queue\Queue $queue
+     * @param  \ZendQueue\Queue $queue
      * @return boolean
      */
     public function setQueue(Queue $queue)
@@ -199,7 +199,7 @@ class Message
      * Sets all data in the row from an array.
      *
      * @param  array $data
-     * @return \Zend\Queue\Message\Message Provides a fluent interface
+     * @return \ZendQueue\Message\Message Provides a fluent interface
      */
     public function setFromArray(array $data)
     {

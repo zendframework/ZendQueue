@@ -8,9 +8,9 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Message;
+namespace ZendQueue\Message;
 
-use Zend\Queue\Exception;
+use ZendQueue\Exception;
 
 /**
  * Class for managing Zend Platform JobQueue jobs via Zend_Queue
@@ -47,7 +47,7 @@ class PlatformJob extends Message
      *
      * @param  array $options
      * @return void
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function __construct(array $options = array())
     {
@@ -75,7 +75,7 @@ class PlatformJob extends Message
      * Used within Zend_Queue only.
      *
      * @param  string $id
-     * @return \Zend\Queue\Message\PlatformJob
+     * @return \ZendQueue\Message\PlatformJob
      */
     public function setJobId($id)
     {
@@ -121,7 +121,7 @@ class PlatformJob extends Message
      */
     public function getQueueClass()
     {
-        return '\Zend\Queue\Adapter\PlatformJobQueue';
+        return '\ZendQueue\Adapter\PlatformJobQueue';
     }
 
     /**

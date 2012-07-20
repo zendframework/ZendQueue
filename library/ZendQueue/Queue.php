@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue;
+namespace ZendQueue;
 
 use Countable;
 use Traversable;
@@ -23,7 +23,7 @@ use Zend\Stdlib\ArrayUtils;
 class Queue implements Countable
 {
     /**
-     * Use the TIMEOUT constant in the config of a \Zend\Queue\Queue
+     * Use the TIMEOUT constant in the config of a \ZendQueue\Queue
      */
     const TIMEOUT = 'timeout';
 
@@ -33,12 +33,12 @@ class Queue implements Countable
     const VISIBILITY_TIMEOUT = 30;
 
     /**
-     * Use the NAME constant in the config of \Zend\Queue\Queue
+     * Use the NAME constant in the config of \ZendQueue\Queue
      */
     const NAME = 'name';
 
     /**
-     * @var \Zend\Queue\Adapter
+     * @var \ZendQueue\Adapter
      */
     protected $_adapter = null;
 
@@ -54,24 +54,24 @@ class Queue implements Countable
      *
      * @var string
      */
-    protected $_messageClass = '\Zend\Queue\Message';
+    protected $_messageClass = '\ZendQueue\Message';
 
     /**
      * Zend_Queue message iterator class
      *
      * @var string
      */
-    protected $_messageSetClass = '\Zend\Queue\Message\MessageIterator';
+    protected $_messageSetClass = '\ZendQueue\Message\MessageIterator';
 
     /**
      * Constructor
      *
      * Can be called as
-     * $queue = new \Zend\Queue\Queue($config);
+     * $queue = new \ZendQueue\Queue($config);
      * - or -
-     * $queue = new \Zend\Queue\Queue('ArrayAdapter', $config);
+     * $queue = new \ZendQueue\Queue('ArrayAdapter', $config);
      * - or -
-     * $queue = new \Zend\Queue\Queue(null, $config); // \Zend\Queue\Queue->createQueue();
+     * $queue = new \ZendQueue\Queue(null, $config); // \ZendQueue\Queue->createQueue();
      *
      * @param  string|Queue\AdapterAbstract|array|\Traversable|null $spec
      * @param  \Traversable|array $options
@@ -132,7 +132,7 @@ class Queue implements Countable
      * Set queue options
      *
      * @param  array $options
-     * @return \Zend\Queue\Queue
+     * @return \ZendQueue\Queue
      */
     public function setOptions(array $options)
     {
@@ -145,7 +145,7 @@ class Queue implements Countable
      *
      * @param  string $name
      * @param  mixed $value
-     * @return \Zend\Queue\Queue
+     * @return \ZendQueue\Queue
      */
     public function setOption($name, $value)
     {
@@ -191,14 +191,14 @@ class Queue implements Countable
     /**
      * Set the adapter for this queue
      *
-     * @param  string|\Zend\Queue\Adapter $adapter
-     * @return \Zend\Queue\Queue Provides a fluent interface
+     * @param  string|\ZendQueue\Adapter $adapter
+     * @return \ZendQueue\Queue Provides a fluent interface
      */
     public function setAdapter($adapter)
     {
         if (is_string($adapter)) {
             if (null === ($adapterNamespace = $this->getOption('adapterNamespace'))) {
-                $adapterNamespace = '\Zend\Queue\Adapter';
+                $adapterNamespace = '\ZendQueue\Adapter';
             }
 
             $adapterName = $adapterNamespace . '\\' . $adapter;
@@ -211,7 +211,7 @@ class Queue implements Countable
         }
 
         if (!$adapter instanceof Adapter) {
-            throw new Exception\InvalidArgumentException('Adapter class \'' . get_class($adapterName) . '\' does not implement \Zend\Queue\Adapter\'');
+            throw new Exception\InvalidArgumentException('Adapter class \'' . get_class($adapterName) . '\' does not implement \ZendQueue\Adapter\'');
         }
 
         $this->_adapter = $adapter;
@@ -228,7 +228,7 @@ class Queue implements Countable
     /**
      * Get the adapter for this queue
      *
-     * @return \Zend\Queue\Adapter
+     * @return \ZendQueue\Adapter
      */
     public function getAdapter()
     {
@@ -237,7 +237,7 @@ class Queue implements Countable
 
     /**
      * @param  string $className
-     * @return \Zend\Queue\Queue Provides a fluent interface
+     * @return \ZendQueue\Queue Provides a fluent interface
      */
     public function setMessageClass($className)
     {
@@ -255,7 +255,7 @@ class Queue implements Countable
 
     /**
      * @param  string $className
-     * @return \Zend\Queue\Queue Provides a fluent interface
+     * @return \ZendQueue\Queue Provides a fluent interface
      */
     public function setMessageSetClass($className)
     {
@@ -289,8 +289,8 @@ class Queue implements Countable
      *
      * @param  string           $name    queue name
      * @param  integer          $timeout default visibility timeout
-     * @return \Zend\Queue\Queue|false
-     * @throws \Zend\Queue\Exception
+     * @return \ZendQueue\Queue|false
+     * @throws \ZendQueue\Exception
      */
     public function createQueue($name, $timeout = null)
     {
@@ -344,7 +344,7 @@ class Queue implements Countable
         }
 
         /**
-         * @see \Zend\Queue\Adapter\Null
+         * @see \ZendQueue\Adapter\Null
          */
         $this->setAdapter(new Adapter\Null($this->getOptions()));
 
@@ -359,9 +359,9 @@ class Queue implements Countable
      *
      * Returns true if the adapter doesn't support message deletion.
      *
-     * @param  \Zend\Queue\Message $message
+     * @param  \ZendQueue\Message $message
      * @return boolean
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function deleteMessage(Message $message)
     {
@@ -375,8 +375,8 @@ class Queue implements Countable
      * Send a message to the queue
      *
      * @param  mixed $message message
-     * @return \Zend\Queue\Message
-     * @throws \Zend\Queue\Exception
+     * @return \ZendQueue\Message
+     * @throws \ZendQueue\Exception
      */
     public function send($message)
     {
@@ -401,7 +401,7 @@ class Queue implements Countable
      *
      * @param  integer $maxMessages
      * @param  integer $timeout
-     * @return \Zend\Queue\Message\MessageIterator
+     * @return \ZendQueue\Message\MessageIterator
      */
     public function receive($maxMessages=null, $timeout=null)
     {
@@ -464,7 +464,7 @@ class Queue implements Countable
      * Get an array of all available queues
      *
      * @return array
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function getQueues()
     {
@@ -481,7 +481,7 @@ class Queue implements Countable
      * This is AN UNSUPPORTED FUNCTION
      *
      * @param  string           $name
-     * @return \Zend\Queue\Queue|false Provides a fluent interface
+     * @return \ZendQueue\Queue|false Provides a fluent interface
      */
     protected function _setName($name)
     {
@@ -506,7 +506,7 @@ class Queue implements Countable
     }
 
     /**
-     * returns a listing of \Zend\Queue\Queue details.
+     * returns a listing of \ZendQueue\Queue details.
      * useful for debugging
      *
      * @return array

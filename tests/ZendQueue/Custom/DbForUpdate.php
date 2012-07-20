@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Custom;
+namespace ZendQueueTest\Custom;
 
 
 /**
@@ -22,17 +22,17 @@ namespace ZendTest\Queue\Custom;
  * @package    Zend_Queue
  * @subpackage UnitTests
  */
-class DbForUpdate extends \Zend\Queue\Adapter\DB
+class DbForUpdate extends \ZendQueue\Adapter\DB
 {
     /**
      * Return the first element in the queue
      *
      * @param  integer           $maxMessages
      * @param  integer           $timeout
-     * @param  \Zend\Queue\Queue $queue
-     * @return \Zend\Queue\Message\MessageIterator
+     * @param  \ZendQueue\Queue $queue
+     * @return \ZendQueue\Message\MessageIterator
      */
-    public function receive($maxMessages=null, $timeout=null, \Zend\Queue\Queue $queue=null)
+    public function receive($maxMessages=null, $timeout=null, \ZendQueue\Queue $queue=null)
     {
         if ($maxMessages === null) {
             $maxMessages = 1;
@@ -90,7 +90,7 @@ class DbForUpdate extends \Zend\Queue\Adapter\DB
             $db->rollBack();
             $this->getLogger()->err($e->getMessage() . ' code ' . $e->getCode());
 
-            throw new \Zend\Queue\Exception($e->getMessage(), $e->getCode());
+            throw new \ZendQueue\Exception($e->getMessage(), $e->getCode());
         }
 
         $config = array(

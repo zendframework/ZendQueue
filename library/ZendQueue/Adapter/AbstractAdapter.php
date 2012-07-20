@@ -8,12 +8,12 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Adapter;
+namespace ZendQueue\Adapter;
 
 use Traversable;
-use Zend\Queue\Adapter;
-use Zend\Queue\Exception;
-use Zend\Queue\Queue;
+use ZendQueue\Adapter;
+use ZendQueue\Exception;
+use ZendQueue\Queue;
 use Zend\Stdlib\ArrayUtils;
 
 /**
@@ -50,9 +50,9 @@ abstract class AbstractAdapter implements Adapter
     protected $_queues = array();
 
     /**
-     * Contains the \Zend\Queue\Queue that this object
+     * Contains the \ZendQueue\Queue that this object
      *
-     * @var \Zend\Queue\Queue
+     * @var \ZendQueue\Queue
      */
     protected $_queue = null;
 
@@ -75,9 +75,9 @@ abstract class AbstractAdapter implements Adapter
      * port           => (string) The port of the database
      *
      * @param  array|Traversable $options An array having configuration data
-     * @param  \Zend\Queue\Queue The \Zend\Queue\Queue object that created this class
+     * @param  \ZendQueue\Queue The \ZendQueue\Queue object that created this class
      * @return void
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function __construct($options, Queue $queue = null)
     {
@@ -128,7 +128,7 @@ abstract class AbstractAdapter implements Adapter
     /**
      * get the Zend_Queue class that is attached to this object
      *
-     * @return \Zend\Queue\Queue|null
+     * @return \ZendQueue\Queue|null
      */
     public function getQueue()
     {
@@ -138,8 +138,8 @@ abstract class AbstractAdapter implements Adapter
     /**
      * set the Zend_Queue class for this object
      *
-     * @param  \Zend\Queue\Queue $queue
-     * @return \Zend\Queue\Adapter
+     * @param  \ZendQueue\Queue $queue
+     * @return \ZendQueue\Adapter
      */
     public function setQueue(Queue $queue)
     {

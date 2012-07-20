@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Custom;
+namespace ZendQueueTest\Custom;
 
 use Zend\Queue as QueueNS;
 
@@ -20,7 +20,7 @@ use Zend\Queue as QueueNS;
  * @package    Zend_Queue
  * @subpackage UnitTests
  */
-class Messages extends \Zend\Queue\Message\MessageIterator implements \ArrayAccess
+class Messages extends \ZendQueue\Message\MessageIterator implements \ArrayAccess
 {
     /**
      * Constructor
@@ -105,7 +105,7 @@ class Messages extends \Zend\Queue\Message\MessageIterator implements \ArrayAcce
     {
         if (! $value instanceof Message) {
             throw new QueueNS\Exception(
-                '$value must be a child or an instance of \ZendTest\Queue\Custom\Messag'
+                '$value must be a child or an instance of \ZendQueueTest\Custom\Messag'
             );
         }
 
@@ -130,7 +130,7 @@ class Messages extends \Zend\Queue\Message\MessageIterator implements \ArrayAcce
             throw new QueueNS\Exception('Cannot delete message after serialization');
         }
 
-        $this->_data[$offset]->delete(); // \ZendTest\Queue\Custom\Message added this function
+        $this->_data[$offset]->delete(); // \ZendQueueTest\Custom\Message added this function
         unset($this->_data[$offset]);
     }
 

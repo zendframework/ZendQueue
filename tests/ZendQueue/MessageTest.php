@@ -8,10 +8,10 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue;
+namespace ZendQueueTest;
 
 use Zend\Queue;
-use Zend\Queue\Message;
+use ZendQueue\Message;
 
 /*
  * The adapter test class provides a universal test class for all of the
@@ -142,7 +142,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->message->getQueue() instanceof Queue\Queue);
 
         $class = $this->message->getQueueClass();
-        $this->assertEquals('Zend\Queue\Queue', $class);
+        $this->assertEquals('ZendQueue\Queue', $class);
 
         $this->assertTrue($this->message->setQueue($this->message->getQueue()));
 

@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Stomp;
+namespace ZendQueue\Stomp;
 
 /**
  * The Stomp client interacts with a Stomp server.
@@ -20,7 +20,7 @@ namespace Zend\Queue\Stomp;
 class Client
 {
     /**
-     * Array of $client \Zend\Queue\Stomp\StompConnection
+     * Array of $client \ZendQueue\Stomp\StompConnection
      *
      * @var array
      */
@@ -35,8 +35,8 @@ class Client
      */
     public function __construct(
         $scheme = null, $host = null, $port = null,
-        $connectionClass = '\Zend\Queue\Stomp\Connection',
-        $frameClass = '\Zend\Queue\Stomp\Frame'
+        $connectionClass = '\ZendQueue\Stomp\Connection',
+        $frameClass = '\ZendQueue\Stomp\Frame'
     ) {
         if (($scheme !== null)
             && ($host !== null)
@@ -70,10 +70,10 @@ class Client
      * @param string  $scheme ['tcp', 'udp']
      * @param string  host
      * @param integer port
-     * @param string  class - create a connection with this class; class must support \Zend\Queue\Stomp\StompConnection
+     * @param string  class - create a connection with this class; class must support \ZendQueue\Stomp\StompConnection
      * @return boolean
      */
-    public function addConnection($scheme, $host, $port, $class = '\Zend\Queue\Stomp\Connection')
+    public function addConnection($scheme, $host, $port, $class = '\ZendQueue\Stomp\Connection')
     {
         $connection = new $class();
 
@@ -89,7 +89,7 @@ class Client
     /**
      * Set client connection
      *
-     * @param \Zend\Queue\Stomp\StompConnection
+     * @param \ZendQueue\Stomp\StompConnection
      * @return void
      */
     public function setConnection(StompConnection $connection)
@@ -101,7 +101,7 @@ class Client
     /**
      * Get client connection
      *
-     * @return \Zend\Queue\Stomp\StompConnection|null
+     * @return \ZendQueue\Stomp\StompConnection|null
      */
     public function getConnection()
     {
@@ -113,7 +113,7 @@ class Client
      *
      * Returns true if the frame was successfully sent.
      *
-     * @param \Zend\Queue\Stomp\StompFrame $frame
+     * @param \ZendQueue\Stomp\StompFrame $frame
      * @return boolean
      */
     public function send(StompFrame $frame)
@@ -127,7 +127,7 @@ class Client
      *
      * Returns a frame or false if none were to be read.
      *
-     * @return \Zend\Queue\Stomp\StompFrame|boolean
+     * @return \ZendQueue\Stomp\StompFrame|boolean
      */
     public function receive()
     {
@@ -147,7 +147,7 @@ class Client
     /**
      * creates a frame class
      *
-     * @return \Zend\Queue\Stomp\StompFrame
+     * @return \ZendQueue\Stomp\StompFrame
      */
     public function createFrame()
     {

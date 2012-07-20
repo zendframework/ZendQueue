@@ -8,11 +8,11 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Adapter;
+namespace ZendQueue\Adapter;
 
-use Zend\Queue\Exception;
-use Zend\Queue\Message;
-use Zend\Queue\Queue;
+use ZendQueue\Exception;
+use ZendQueue\Message;
+use ZendQueue\Queue;
 
 /**
  * Class for using a standard PHP array as a queue
@@ -108,9 +108,9 @@ class ArrayAdapter extends AbstractAdapter
     /**
      * Return the approximate number of messages in the queue
      *
-     * @param  \Zend\Queue\Queue $queue
+     * @param  \ZendQueue\Queue $queue
      * @return integer
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function count(Queue $queue=null)
     {
@@ -133,9 +133,9 @@ class ArrayAdapter extends AbstractAdapter
      * Send a message to the queue
      *
      * @param  string     $message Message to send to the active queue
-     * @param  \Zend\Queue\Queue $queue
-     * @return \Zend\Queue\Message
-     * @throws \Zend\Queue\Exception
+     * @param  \ZendQueue\Queue $queue
+     * @return \ZendQueue\Message
+     * @throws \ZendQueue\Exception
      */
     public function send($message, Queue $queue=null)
     {
@@ -173,8 +173,8 @@ class ArrayAdapter extends AbstractAdapter
      *
      * @param  integer    $maxMessages  Maximum number of messages to return
      * @param  integer    $timeout      Visibility timeout for these messages
-     * @param  \Zend\Queue\Queue $queue
-     * @return \Zend\Queue\Message\MessageIterator
+     * @param  \ZendQueue\Queue $queue
+     * @return \ZendQueue\Message\MessageIterator
      */
     public function receive($maxMessages = null, $timeout = null, Queue $queue = null)
     {
@@ -228,9 +228,9 @@ class ArrayAdapter extends AbstractAdapter
      * Returns true if the message is deleted, false if the deletion is
      * unsuccessful.
      *
-     * @param  \Zend\Queue\Message $message
+     * @param  \ZendQueue\Message $message
      * @return boolean
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function deleteMessage(Message $message)
     {
@@ -275,7 +275,7 @@ class ArrayAdapter extends AbstractAdapter
     }
 
     /********************************************************************
-    * Functions that are not part of the \Zend\Queue\Adapter\AdapterAbstract
+    * Functions that are not part of the \ZendQueue\Adapter\AdapterAbstract
      *********************************************************************/
 
     /**

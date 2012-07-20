@@ -1,17 +1,24 @@
 {
     "name": "zendframework/zend-queue",
     "description": "provides a factory function to create specific queue client objects",
+    "type": "library",
     "license": "BSD-3-Clause",
     "keywords": [
         "zf2",
         "queue"
     ],
+    "homepage": "http://packages.zendframework.com/",
     "autoload": {
         "psr-0": {
-            "Zend\\Queue": ""
+            "ZendQueue": "library/"
         }
     },
-    "target-dir": "Zend/Queue",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packages.zendframework.com/"
+        }
+    ],
     "require": {
         "php": ">=5.3.3"
     }

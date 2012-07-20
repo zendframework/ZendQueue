@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Stomp;
+namespace ZendQueue\Stomp;
 
 /**
  * This interface represents a Stomp Frame
@@ -38,7 +38,7 @@ interface StompFrame
      *
      * @param boolean $auto
      * @return $this;
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function setAutoContentLength($auto);
 
@@ -56,7 +56,7 @@ interface StompFrame
      *
      * @param array $headers
      * @return $this
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function setHeaders(array $headers);
 
@@ -66,7 +66,7 @@ interface StompFrame
      *
      * @param string $header
      * @return $string
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function getHeader($header);
 
@@ -77,7 +77,7 @@ interface StompFrame
      * @param string $header
      * @param string $value
      * @return $this
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function setHeader($header, $value);
 
@@ -97,7 +97,7 @@ interface StompFrame
      *
      * @param string|null $body
      * @return $this
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function setBody($body);
 
@@ -114,7 +114,7 @@ interface StompFrame
      * returns false if the body does not exist
      *
      * @return $this
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function setCommand($command);
 
@@ -122,7 +122,7 @@ interface StompFrame
     /**
      * Takes the current parameters and returns a Stomp Frame
      *
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      * @return string
      */
     public function toFrame();

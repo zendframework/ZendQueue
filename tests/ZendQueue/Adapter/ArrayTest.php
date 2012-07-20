@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Adapter;
+namespace ZendQueueTest\Adapter;
 
 /*
  * The adapter test class provides a universal test class for all of the
@@ -51,7 +51,7 @@ class ArrayTest extends AdapterTest
      */
     public function getAdapterFullName()
     {
-        return '\Zend\Queue\Adapter\\' . $this->getAdapterName();
+        return '\ZendQueue\Adapter\\' . $this->getAdapterName();
     }
 
     public function getTestConfig()

@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue;
+namespace ZendQueue;
 
 /**
  * Interface for common queue operations
@@ -23,7 +23,7 @@ interface Adapter
      * Constructor
      *
      * @param  array|\Traversable $options
-     * @param  \Zend\Queue\Queue $queue
+     * @param  \ZendQueue\Queue $queue
      * @return void
      */
     public function __construct($options, Queue $queue = null);
@@ -31,15 +31,15 @@ interface Adapter
     /**
      * Retrieve queue instance
      *
-     * @return \Zend\Queue\Queue
+     * @return \ZendQueue\Queue
      */
     public function getQueue();
 
     /**
      * Set queue instnace
      *
-     * @param  \Zend\Queue\Queue $queue
-     * @return \Zend\Queue\Adapter
+     * @param  \ZendQueue\Queue $queue
+     * @return \ZendQueue\Adapter
      */
     public function setQueue(Queue $queue);
 
@@ -92,7 +92,7 @@ interface Adapter
     /**
      * Return the approximate number of messages in the queue
      *
-     * @param  \Zend\Queue\Queue|null $queue
+     * @param  \ZendQueue\Queue|null $queue
      * @return integer
      */
     public function count(Queue $queue = null);
@@ -105,8 +105,8 @@ interface Adapter
      * Send a message to the queue
      *
      * @param  mixed $message Message to send to the active queue
-     * @param  \Zend\Queue\Queue|null $queue
-     * @return \Zend\Queue\Message
+     * @param  \ZendQueue\Queue|null $queue
+     * @return \ZendQueue\Message
      */
     public function send($message, Queue $queue = null);
 
@@ -115,8 +115,8 @@ interface Adapter
      *
      * @param  integer|null $maxMessages Maximum number of messages to return
      * @param  integer|null $timeout Visibility timeout for these messages
-     * @param  \Zend\Queue\Queue|null $queue
-     * @return \Zend\Queue\Message\MessageIterator
+     * @param  \ZendQueue\Queue|null $queue
+     * @return \ZendQueue\Message\MessageIterator
      */
     public function receive($maxMessages = null, $timeout = null, Queue $queue = null);
 
@@ -126,7 +126,7 @@ interface Adapter
      * Return true if the message is deleted, false if the deletion is
      * unsuccessful.
      *
-     * @param  \Zend\Queue\Message $message
+     * @param  \ZendQueue\Message $message
      * @return boolean
      */
     public function deleteMessage(Message $message);

@@ -8,9 +8,9 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Stomp;
+namespace ZendQueue\Stomp;
 
-use Zend\Queue\Exception;
+use ZendQueue\Exception;
 
 /**
  * The Stomp client interacts with a Stomp server.
@@ -46,7 +46,7 @@ class Connection implements StompConnection
      * @param  int $port
      * @param  array $options Accepts "timeout_sec" and "timeout_usec" keys
      * @return true;
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function open($scheme, $host, $port, array $options = array())
     {
@@ -114,7 +114,7 @@ class Connection implements StompConnection
      * Check whether we are connected to the server
      *
      * @return true
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function ping()
     {
@@ -129,7 +129,7 @@ class Connection implements StompConnection
      *
      * example: $response = $client->write($frame)->read();
      *
-     * @param \Zend\Queue\Stom\StompFrame $frame
+     * @param \ZendQueue\Stom\StompFrame $frame
      * @return $this
      */
     public function write(StompFrame $frame)
@@ -169,8 +169,8 @@ class Connection implements StompConnection
     /**
      * Reads in a frame from the socket or returns false.
      *
-     * @return \Zend\Queue\Stomp\StompFrame|false
-     * @throws \Zend\Queue\Exception
+     * @return \ZendQueue\Stomp\StompFrame|false
+     * @throws \ZendQueue\Exception
      */
     public function read()
     {
@@ -244,9 +244,9 @@ class Connection implements StompConnection
     /**
      * Set the frameClass to be used
      *
-     * This must be a \Zend\Queue\Stomp\StompFrame.
+     * This must be a \ZendQueue\Stomp\StompFrame.
      *
-     * @param  string $classname - class is an instance of \Zend\Queue\Stomp\StompFrame
+     * @param  string $classname - class is an instance of \ZendQueue\Stomp\StompFrame
      * @return $this;
      */
     public function setFrameClass($classname)
@@ -264,13 +264,13 @@ class Connection implements StompConnection
     {
         return isset($this->_options['frameClass'])
             ? $this->_options['frameClass']
-            : '\Zend\Queue\Stomp\Frame';
+            : '\ZendQueue\Stomp\Frame';
     }
 
     /**
      * Create an empty frame
      *
-     * @return \Zend\Queue\Stomp\StompFrame
+     * @return \ZendQueue\Stomp\StompFrame
      */
     public function createFrame()
     {
@@ -279,7 +279,7 @@ class Connection implements StompConnection
         $frame = new $class();
 
         if (!$frame instanceof StompFrame) {
-            throw new Exception\LogicException('Invalid Frame class provided; must implement \Zend\Queue\Stomp\StompFrame');
+            throw new Exception\LogicException('Invalid Frame class provided; must implement \ZendQueue\Stomp\StompFrame');
         }
 
         return $frame;
@@ -288,7 +288,7 @@ class Connection implements StompConnection
     /**
      * Check if the connection has timed out
      *
-     * @throws Zend\Queue\Exception if the connection has timed out
+     * @throws ZendQueue\Exception if the connection has timed out
      */
     protected function _checkSocketReadTimeout()
     {

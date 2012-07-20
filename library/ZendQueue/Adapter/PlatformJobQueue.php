@@ -8,13 +8,13 @@
  * @package   Zend_Queue
  */
 
-namespace Zend\Queue\Adapter;
+namespace ZendQueue\Adapter;
 
 use ZendAPI_Job;
 use ZendAPI_Queue;
-use Zend\Queue\Exception;
-use Zend\Queue\Message;
-use Zend\Queue\Queue;
+use ZendQueue\Exception;
+use ZendQueue\Message;
+use ZendQueue\Queue;
 
 /**
  * Zend Platform JobQueue adapter
@@ -34,7 +34,7 @@ class PlatformJobQueue extends AbstractAdapter
      * Constructor
      *
      * @param  array|\Traversable $options
-     * @param  \Zend\Queue\Queue|null $queue
+     * @param  \ZendQueue\Queue|null $queue
      * @return void
      */
     public function __construct($options, Queue $queue = null)
@@ -68,7 +68,7 @@ class PlatformJobQueue extends AbstractAdapter
         }
 
         if ($this->_queue) {
-            $this->_queue->setMessageClass('\Zend\Queue\Message\PlatformJob');
+            $this->_queue->setMessageClass('\ZendQueue\Message\PlatformJob');
         }
     }
 
@@ -81,7 +81,7 @@ class PlatformJobQueue extends AbstractAdapter
      *
      * @param  string $name
      * @return boolean
-     * @throws \Zend\Queue\Exception (not supported)
+     * @throws \ZendQueue\Exception (not supported)
      */
     public function isExists($name)
     {
@@ -94,7 +94,7 @@ class PlatformJobQueue extends AbstractAdapter
      * @param  string  $name    queue name
      * @param  integer $timeout default visibility timeout
      * @return void
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function create($name, $timeout=null)
     {
@@ -106,7 +106,7 @@ class PlatformJobQueue extends AbstractAdapter
      *
      * @param  string $name queue name
      * @return void
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function delete($name)
     {
@@ -117,7 +117,7 @@ class PlatformJobQueue extends AbstractAdapter
      * Get an array of all available queues
      *
      * @return void
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function getQueues()
     {
@@ -127,7 +127,7 @@ class PlatformJobQueue extends AbstractAdapter
     /**
      * Return the approximate number of messages in the queue
      *
-     * @param  \Zend\Queue\Queue|null $queue
+     * @param  \ZendQueue\Queue|null $queue
      * @return integer
      */
     public function count(Queue $queue = null)
@@ -147,9 +147,9 @@ class PlatformJobQueue extends AbstractAdapter
      * Send a message to the queue
      *
      * @param  array|\ZendAPI_Job $message Message to send to the active queue
-     * @param  \Zend\Queue\Queue $queue     Not supported
-     * @return \Zend\Queue\Message\Message
-     * @throws \Zend\Queue\Exception
+     * @param  \ZendQueue\Queue $queue     Not supported
+     * @return \ZendQueue\Message\Message
+     * @throws \ZendQueue\Exception
      */
     public function send($message, Queue $queue = null)
     {
@@ -185,8 +185,8 @@ class PlatformJobQueue extends AbstractAdapter
      *
      * @param  integer    $maxMessages    Maximum number of messages to return
      * @param  integer    $timeout        Ignored
-     * @param  \Zend\Queue\Queue $queue   Not supported
-     * @throws \Zend\Queue\Exception
+     * @param  \ZendQueue\Queue $queue   Not supported
+     * @throws \ZendQueue\Exception
      * @return ArrayIterator
      */
     public function receive($maxMessages = null, $timeout = null, Queue $queue = null)
@@ -216,16 +216,16 @@ class PlatformJobQueue extends AbstractAdapter
      * Returns true if the message is deleted, false if the deletion is
      * unsuccessful.
      *
-     * @param  \Zend\Queue\Message $message
+     * @param  \ZendQueue\Message $message
      * @return boolean
-     * @throws \Zend\Queue\Exception
+     * @throws \ZendQueue\Exception
      */
     public function deleteMessage(Message $message)
     {
         if (get_class($message) != $this->_queue->getMessageClass()) {
             throw new Exception\DomainException(
                 'Failed to remove job from the queue; only messages of type '
-                . '\Zend\Queue\Message\PlatformJob may be used'
+                . '\ZendQueue\Message\PlatformJob may be used'
             );
         }
 
@@ -265,7 +265,7 @@ class PlatformJobQueue extends AbstractAdapter
     }
 
     /********************************************************************
-     * Functions that are not part of the \Zend\Queue\Adapter\AdapterAbstract
+     * Functions that are not part of the \ZendQueue\Adapter\AdapterAbstract
      ********************************************************************/
 
     /**

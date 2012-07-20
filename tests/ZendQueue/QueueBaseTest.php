@@ -8,10 +8,10 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue;
+namespace ZendQueueTest;
 
 use Zend\Queue;
-use Zend\Queue\Adapter;
+use ZendQueue\Adapter;
 
 /*
  * The adapter test class provides a universal test class for all of the
@@ -155,7 +155,7 @@ abstract class QueueBaseTest extends \PHPUnit_Framework_TestCase
 
         // ------------------------------------ send()
         $message = 'Hello world'; // never gets boring!
-        $this->assertTrue($this->queue->send($message) instanceof \Zend\Queue\Message);
+        $this->assertTrue($this->queue->send($message) instanceof \ZendQueue\Message);
 
         // ------------------------------------ count()
         $this->assertEquals($this->queue->count(), 1, var_export($this->queue->getAdapter()->getData(), 1));
@@ -177,7 +177,7 @@ abstract class QueueBaseTest extends \PHPUnit_Framework_TestCase
         }
 
         $messages = $this->queue->receive();
-        $this->assertTrue($messages instanceof \Zend\Queue\Message\MessageIterator);
+        $this->assertTrue($messages instanceof \ZendQueue\Message\MessageIterator);
 
         // ------------------------------------ deleteMessage()
         foreach ($messages as $i => $message) {

@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Adapter;
+namespace ZendQueueTest\Adapter;
 
 /**
  * Class for managing queue messages
@@ -18,7 +18,7 @@ namespace ZendTest\Queue\Adapter;
  * @subpackage UnitTests
  */
 
-class Iterator2 extends \Zend\Queue\Message\MessageIterator
+class Iterator2 extends \ZendQueue\Message\MessageIterator
 {
     // This is a really lazy way to test a new iterator.
 }

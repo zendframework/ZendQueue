@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue;
+namespace ZendQueueTest;
 
 use Zend\Queue;
 

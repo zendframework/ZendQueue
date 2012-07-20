@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Custom;
+namespace ZendQueueTest\Custom;
 
 /*
  * The adapter test class provides a universal test class for all of the
@@ -23,17 +23,17 @@ namespace ZendTest\Queue\Custom;
  * @package    Zend_Queue
  * @subpackage UnitTests
  */
-class Queue extends \Zend\Queue\Queue
+class Queue extends \ZendQueue\Queue
 {
     /**
      * Constructor
      *
      * Can be called as
-     * $queue = new \ZendTest\Queue\Custom\Queue($config);
+     * $queue = new \ZendQueueTest\Custom\Queue($config);
      * - or -
-     * $queue = new \ZendTest\Queue\Custom\Queue('ArrayAdapter', $config);
+     * $queue = new \ZendQueueTest\Custom\Queue('ArrayAdapter', $config);
      * - or -
-     * $queue = new \ZendTest\Queue\Custom\Queue(null, $config); // Zend_Queue->createQueue();
+     * $queue = new \ZendQueueTest\Custom\Queue(null, $config); // Zend_Queue->createQueue();
      *
      * @param Zend_Queue_Adapter_Abstract|string $adapter adapter object or class name
      * @param Zend_Config|array  $config Zend_Config or an configuration array
@@ -43,22 +43,22 @@ class Queue extends \Zend\Queue\Queue
         $args = func_get_args();
         call_user_func_array(array($this, 'parent::__construct'), $args);
 
-        $this->setMessageClass('\ZendTest\Queue\Custom\Message');
-        $this->setMessageSetClass('\ZendTest\Queue\Custom\Messages');
+        $this->setMessageClass('\ZendQueueTest\Custom\Message');
+        $this->setMessageSetClass('\ZendQueueTest\Custom\Messages');
     }
 
     /**
      * Send a message to the queue
      *
-     * @param  \ZendTest\Queue\Custom\Message|\ZendTest\Queue\Custom\Messages $message message
+     * @param  \ZendQueueTest\Custom\Message|\ZendQueueTest\Custom\Messages $message message
      * @return $this
      * @throws Zend_Queue_Exception
      */
     public function send($message)
     {
         if (! ($message instanceof Message || $message instanceof Messages) ) {
-            throw new \Zend\Queue\Exception(
-               '$message must be an instance of \ZendTest\Queue\Custom\Message or \ZendTest\Queue\Custom\Messages'
+            throw new \ZendQueue\Exception(
+               '$message must be an instance of \ZendQueueTest\Custom\Message or \ZendQueueTest\Custom\Messages'
             );
         }
         if ($message instanceof Message) {

@@ -8,7 +8,7 @@
  * @package   Zend_Queue
  */
 
-namespace ZendTest\Queue\Bugs;
+namespace ZendQueueTest\Bugs;
 
 use Zend\Queue;
 
@@ -26,7 +26,7 @@ class Zf7650Test extends \PHPUnit_Framework_TestCase
 {
     public function testArrayAdapterShouldReturnNoMessagesWhenZeroCountRequested()
     {
-        // \Zend\Queue\Adapter\ArrayAdapter
+        // \ZendQueue\Adapter\ArrayAdapter
         $queue = new Queue\Queue('ArrayAdapter');
         $queue2 = $queue->createQueue('queue');
 
