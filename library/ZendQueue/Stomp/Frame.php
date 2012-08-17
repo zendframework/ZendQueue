@@ -259,7 +259,7 @@ class Frame implements StompFrame
 
         // Headers
         foreach ($headers as $key=>$value) {
-            $frame .= $key . ': ' . $value . self::EOL;
+            $frame .= $key . ':' . $value . self::EOL;
         }
 
         // Seperator
