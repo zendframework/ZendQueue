@@ -21,5 +21,8 @@
     ],
     "require": {
         "php": ">=5.3.3"
+    },
+    "suggest": {
+        "zendframework/zend-db": "Zend\\Db required if you are using the DB queue adapter"
     }
 }
