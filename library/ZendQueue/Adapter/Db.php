@@ -273,6 +273,7 @@ class Db extends AbstractAdapter
      *
      * @param  string     $message Message to send to the active queue
      * @param  \ZendQueue\Queue $queue
+     * @param  int $timeout Optional Unix timestamp that this message will only be available after
      * @return \ZendQueue\Message\Message
      * @throws \ZendQueue\Exception - database error
      */
