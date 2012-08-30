@@ -307,7 +307,7 @@ class Db extends AbstractAdapter
         try {
             $msg->save();
         } catch (\Exception $e) {
-            throw new Exceptioin\RuntimeException($e->getMessage(), $e->getCode(), $e);
+            throw new Exception\RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
 
         $options = array(
