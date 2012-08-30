@@ -276,7 +276,7 @@ class Db extends AbstractAdapter
      * @return \ZendQueue\Message\Message
      * @throws \ZendQueue\Exception - database error
      */
-    public function send($message, Queue $queue = null)
+    public function send($message, Queue $queue = null, $timeout = null)
     {
         if ($this->_messageRow === null) {
             $this->_messageRow = $this->_messageTable->createRow();
@@ -292,6 +292,10 @@ class Db extends AbstractAdapter
         if (is_string($message)) {
             $message = trim($message);
         }
+        
+        if (!is_numeric($timeout)) {
+        	$timeout = null;
+        }
 
         if (!$this->isExists($queue->getName())) {
             throw new Exception\QueueNotFoundException('Queue does not exist:' . $queue->getName());
@@ -302,7 +306,7 @@ class Db extends AbstractAdapter
         $msg->created  = time();
         $msg->body     = $message;
         $msg->md5      = md5($message);
-        // $msg->timeout = ??? @TODO
+        $msg->timeout  = $timeout;
 
         try {
             $msg->save();
