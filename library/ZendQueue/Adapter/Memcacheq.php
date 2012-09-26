@@ -11,6 +11,7 @@
 namespace ZendQueue\Adapter;
 
 use Memcache;
+use Traversable;
 use ZendQueue\Exception;
 use ZendQueue\Message;
 use ZendQueue\Queue;
@@ -55,9 +56,10 @@ class Memcacheq extends AbstractAdapter
     /**
      * Constructor
      *
-     * @param  array|\Traversable $options
-     * @param  null|\ZendQueue\Queue $queue
-     * @return void
+     * @param  array|Traversable $options
+     * @param  null|Queue $queue
+     * @throws Exception\ExtensionNotLoadedException
+     * @throws Exception\ConnectionException
      */
     public function __construct($options, Queue $queue = null)
     {
@@ -95,7 +97,7 @@ class Memcacheq extends AbstractAdapter
      */
     public function __destruct()
     {
-        if ($this->_cache instanceof \Memcache) {
+        if ($this->_cache instanceof Memcache) {
             $this->_cache->close();
         }
         if (is_resource($this->_socket)) {
@@ -118,7 +120,7 @@ class Memcacheq extends AbstractAdapter
      *
      * @param  string $name
      * @return boolean
-     * @throws \ZendQueue\Exception
+     * @throws Exception\ExceptionInterface
      */
     public function isExists($name)
     {
@@ -140,7 +142,7 @@ class Memcacheq extends AbstractAdapter
      * @param  string  $name    queue name
      * @param  integer $timeout default visibility timeout
      * @return boolean
-     * @throws \ZendQueue\Exception
+     * @throws Exception\ExceptionInterface
      */
     public function create($name, $timeout=null)
     {
@@ -170,7 +172,7 @@ class Memcacheq extends AbstractAdapter
      *
      * @param  string  $name queue name
      * @return boolean
-     * @throws \ZendQueue\Exception
+     * @throws Exception\ExceptionInterface
      */
     public function delete($name)
     {
@@ -195,7 +197,7 @@ class Memcacheq extends AbstractAdapter
      * to determine if the adapter supports this feature.
      *
      * @return array
-     * @throws \ZendQueue\Exception
+     * @throws Exception\ExceptionInterface
      */
     public function getQueues()
     {
@@ -213,9 +215,9 @@ class Memcacheq extends AbstractAdapter
     /**
      * Return the approximate number of messages in the queue
      *
-     * @param  \ZendQueue\Queue $queue
+     * @param  Queue $queue
      * @return integer
-     * @throws \ZendQueue\Exception (not supported)
+     * @throws Exception\UnsupportedMethodCallException (not supported)
      */
     public function count(Queue $queue=null)
     {
@@ -230,9 +232,10 @@ class Memcacheq extends AbstractAdapter
      * Send a message to the queue
      *
      * @param  string     $message Message to send to the active queue
-     * @param  \ZendQueue\Queue $queue
-     * @return \ZendQueue\Message
-     * @throws \ZendQueue\Exception
+     * @param  Queue $queue
+     * @return Message
+     * @throws Exception\QueueNotFoundException
+     * @throws Exception\RuntimeException
      */
     public function send($message, Queue $queue=null)
     {
@@ -270,9 +273,9 @@ class Memcacheq extends AbstractAdapter
      *
      * @param  integer    $maxMessages  Maximum number of messages to return
      * @param  integer    $timeout      Visibility timeout for these messages
-     * @param  \ZendQueue\Queue $queue
-     * @return \ZendQueue\Message\MessageIterator
-     * @throws \ZendQueue\Exception
+     * @param  Queue $queue
+     * @return Message\MessageIterator
+     * @throws Exception\ExceptionInterface
      */
     public function receive($maxMessages=null, $timeout=null, Queue $queue=null)
     {
@@ -314,9 +317,9 @@ class Memcacheq extends AbstractAdapter
      * Returns true if the message is deleted, false if the deletion is
      * unsuccessful.
      *
-     * @param  \ZendQueue\Message $message
+     * @param  Message $message
      * @return boolean
-     * @throws \ZendQueue\Exception (unsupported)
+     * @throws Exception\UnsupportedMethodCallException (unsupported)
      */
     public function deleteMessage(Message $message)
     {
@@ -365,7 +368,7 @@ class Memcacheq extends AbstractAdapter
      * @param  array   $terminator - strings to indicate end of memcacheQ response
      * @param  boolean $include_term - include terminator in response
      * @return array
-     * @throws \ZendQueue\Exception if connection cannot be opened
+     * @throws Exception\ConnectionException if connection cannot be opened
      */
     protected function _sendCommand($command, array $terminator, $include_term=false)
     {

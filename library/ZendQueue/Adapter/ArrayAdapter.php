@@ -108,9 +108,9 @@ class ArrayAdapter extends AbstractAdapter
     /**
      * Return the approximate number of messages in the queue
      *
-     * @param  \ZendQueue\Queue $queue
+     * @param  Queue $queue
      * @return integer
-     * @throws \ZendQueue\Exception
+     * @throws Exception\QueueNotFoundException
      */
     public function count(Queue $queue=null)
     {
@@ -133,9 +133,9 @@ class ArrayAdapter extends AbstractAdapter
      * Send a message to the queue
      *
      * @param  string     $message Message to send to the active queue
-     * @param  \ZendQueue\Queue $queue
-     * @return \ZendQueue\Message
-     * @throws \ZendQueue\Exception
+     * @param  Queue $queue
+     * @return Message
+     * @throws Exception\QueueNotFoundException
      */
     public function send($message, Queue $queue=null)
     {
@@ -173,8 +173,8 @@ class ArrayAdapter extends AbstractAdapter
      *
      * @param  integer    $maxMessages  Maximum number of messages to return
      * @param  integer    $timeout      Visibility timeout for these messages
-     * @param  \ZendQueue\Queue $queue
-     * @return \ZendQueue\Message\MessageIterator
+     * @param  Queue $queue
+     * @return Message\MessageIterator
      */
     public function receive($maxMessages = null, $timeout = null, Queue $queue = null)
     {
@@ -228,9 +228,9 @@ class ArrayAdapter extends AbstractAdapter
      * Returns true if the message is deleted, false if the deletion is
      * unsuccessful.
      *
-     * @param  \ZendQueue\Message $message
+     * @param  Message $message
      * @return boolean
-     * @throws \ZendQueue\Exception
+     * @throws Exception\ExceptionInterface
      */
     public function deleteMessage(Message $message)
     {
@@ -294,7 +294,7 @@ class ArrayAdapter extends AbstractAdapter
      * returns underlying _data array
      * $queue->getAdapter()->getData();
      *
-     * @return $this;
+     * @return ArrayAdapter
      */
     public function getData()
     {
@@ -306,7 +306,7 @@ class ArrayAdapter extends AbstractAdapter
      * $queue->getAdapter()->setData($data);
      *
      * @param $data array
-     * @return $this;
+     * @return ArrayAdapter
      */
     public function setData($data)
     {

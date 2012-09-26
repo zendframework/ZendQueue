@@ -46,7 +46,7 @@ class Connection implements StompConnection
      * @param  int $port
      * @param  array $options Accepts "timeout_sec" and "timeout_usec" keys
      * @return true;
-     * @throws \ZendQueue\Exception
+     * @throws Exception\ConnectionException
      */
     public function open($scheme, $host, $port, array $options = array())
     {
@@ -114,7 +114,7 @@ class Connection implements StompConnection
      * Check whether we are connected to the server
      *
      * @return true
-     * @throws \ZendQueue\Exception
+     * @throws Exception\ConnectionException
      */
     public function ping()
     {
@@ -129,8 +129,9 @@ class Connection implements StompConnection
      *
      * example: $response = $client->write($frame)->read();
      *
-     * @param \ZendQueue\Stom\StompFrame $frame
-     * @return $this
+     * @param StompFrame $frame
+     * @return Connection
+     * @throws Exception\RangeException
      */
     public function write(StompFrame $frame)
     {
@@ -169,8 +170,8 @@ class Connection implements StompConnection
     /**
      * Reads in a frame from the socket or returns false.
      *
-     * @return \ZendQueue\Stomp\StompFrame|false
-     * @throws \ZendQueue\Exception
+     * @return StompFrame|false
+     * @throws Exception\ExceptionInterface
      */
     public function read()
     {
@@ -247,7 +248,7 @@ class Connection implements StompConnection
      * This must be a \ZendQueue\Stomp\StompFrame.
      *
      * @param  string $classname - class is an instance of \ZendQueue\Stomp\StompFrame
-     * @return $this;
+     * @return Connection
      */
     public function setFrameClass($classname)
     {
@@ -270,7 +271,8 @@ class Connection implements StompConnection
     /**
      * Create an empty frame
      *
-     * @return \ZendQueue\Stomp\StompFrame
+     * @return StompFrame
+     * @throws Exception\LogicException
      */
     public function createFrame()
     {
@@ -288,7 +290,7 @@ class Connection implements StompConnection
     /**
      * Check if the connection has timed out
      *
-     * @throws ZendQueue\Exception if the connection has timed out
+     * @throws Exception\ConnectionException if the connection has timed out
      */
     protected function _checkSocketReadTimeout()
     {

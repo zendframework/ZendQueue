@@ -11,7 +11,6 @@
 namespace ZendQueue\Adapter;
 
 use Traversable;
-use ZendQueue\Adapter;
 use ZendQueue\Exception;
 use ZendQueue\Queue;
 use Zend\Stdlib\ArrayUtils;
@@ -23,7 +22,7 @@ use Zend\Stdlib\ArrayUtils;
  * @package    Zend_Queue
  * @subpackage Adapter
  */
-abstract class AbstractAdapter implements Adapter
+abstract class AbstractAdapter implements AdapterInterface
 {
     /**
      * Default timeout for createQueue() function
@@ -50,9 +49,9 @@ abstract class AbstractAdapter implements Adapter
     protected $_queues = array();
 
     /**
-     * Contains the \ZendQueue\Queue that this object
+     * Contains the Queue that this object
      *
-     * @var \ZendQueue\Queue
+     * @var Queue
      */
     protected $_queue = null;
 
@@ -75,9 +74,8 @@ abstract class AbstractAdapter implements Adapter
      * port           => (string) The port of the database
      *
      * @param  array|Traversable $options An array having configuration data
-     * @param  \ZendQueue\Queue The \ZendQueue\Queue object that created this class
-     * @return void
-     * @throws \ZendQueue\Exception
+     * @param  Queue The Queue object that created this class
+     * @throws Exception\InvalidArgumentException
      */
     public function __construct($options, Queue $queue = null)
     {
@@ -128,7 +126,7 @@ abstract class AbstractAdapter implements Adapter
     /**
      * get the Zend_Queue class that is attached to this object
      *
-     * @return \ZendQueue\Queue|null
+     * @return Queue|null
      */
     public function getQueue()
     {
@@ -138,8 +136,8 @@ abstract class AbstractAdapter implements Adapter
     /**
      * set the Zend_Queue class for this object
      *
-     * @param  \ZendQueue\Queue $queue
-     * @return \ZendQueue\Adapter
+     * @param  Queue $queue
+     * @return AbstractAdapter
      */
     public function setQueue(Queue $queue)
     {

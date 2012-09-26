@@ -17,4 +17,5 @@ namespace ZendQueue\Exception;
  * @package    Zend_Queue
  */
 class QueueNotFoundException extends RuntimeException
-{}
+{
+}
