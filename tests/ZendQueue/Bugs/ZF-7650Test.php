@@ -10,7 +10,7 @@
 
 namespace ZendQueueTest\Bugs;
 
-use Zend\Queue;
+use ZendQueue\Queue;
 
 /*
  * This code specifically tests for ZF-7650
@@ -27,7 +27,7 @@ class Zf7650Test extends \PHPUnit_Framework_TestCase
     public function testArrayAdapterShouldReturnNoMessagesWhenZeroCountRequested()
     {
         // \ZendQueue\Adapter\ArrayAdapter
-        $queue = new Queue\Queue('ArrayAdapter');
+        $queue = new Queue('ArrayAdapter');
         $queue2 = $queue->createQueue('queue');
 
         $queue->send('My Test Message 1');
@@ -51,7 +51,7 @@ class Zf7650Test extends \PHPUnit_Framework_TestCase
         }
         $options = array('name' => 'ZF7650', 'driverOptions' => $driverOptions);
 
-        $queue = new Queue\Queue('Memcacheq', $options);
+        $queue = new Queue('Memcacheq', $options);
         $queue2 = $queue->createQueue('queue');
 
         $queue->send('My Test Message 1');
@@ -64,7 +64,7 @@ class Zf7650Test extends \PHPUnit_Framework_TestCase
 
     public function testDbAdapterShouldReturnNoMessagesWhenZeroCountRequested()
     {
-        if (!constant('TESTS_ZEND_QUEUE_DB_ENABLED')) {
+        if (!constant('TESTS_ZEND_QUEUE_DB')) {
             $this->markTestSkipped('Zend_Queue DB adapter tests are not enabled');
         }
         $driverOptions = array();
@@ -78,7 +78,7 @@ class Zf7650Test extends \PHPUnit_Framework_TestCase
             'driverOptions' => $driverOptions,
         );
 
-        $queue = new Queue\Queue('Db', $options);
+        $queue = new Queue('Db', $options);
         $queue2 = $queue->createQueue('queue');
 
         $queue->send('My Test Message 1');
@@ -105,7 +105,7 @@ class Zf7650Test extends \PHPUnit_Framework_TestCase
         }
         $options = array('driverOptions' => $driverOptions);
 
-        $queue = new Queue\Queue('Activemq', $options);
+        $queue = new Queue('Activemq', $options);
         $queue2 = $queue->createQueue('queue');
 
         $queue->send('My Test Message 1');

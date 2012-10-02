@@ -10,29 +10,16 @@
 
 namespace ZendQueueTest;
 
-use Zend\Queue;
+use ZendQueue\Queue;
 use ZendQueue\Message;
 
-/*
+/**
  * The adapter test class provides a universal test class for all of the
  * abstract methods.
  *
  * All methods marked not supported are explictly checked for for throwing
  * an exception.
- */
-
-/** PHPUnit Test Case */
-
-/** TestHelp.php */
-
-/** Zend_Queue */
-
-/** Zend_Queue */
-
-/** Zend_Queue_Adapter_Array */
-/** Zend_Queue_Adapter_Null */
-
-/**
+ *
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage UnitTests
@@ -48,7 +35,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             'params'    => array(),
         );
 
-        $this->queue = new Queue\Queue('ArrayAdapter', $this->options);
+        $this->queue = new Queue('ArrayAdapter', $this->options);
 
         $this->data = array(
             'id'     => 123,
@@ -139,7 +126,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function test_set_getQueue()
     {
-        $this->assertTrue($this->message->getQueue() instanceof Queue\Queue);
+        $this->assertTrue($this->message->getQueue() instanceof Queue);
 
         $class = $this->message->getQueueClass();
         $this->assertEquals('ZendQueue\Queue', $class);
@@ -149,7 +136,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         // parameter verification
 
         try {
-            $null = new Queue\Queue('Null', array());
+            $null = new Queue('Null', array());
             $this->message->setQueue($null);
             $this->fail('invalid class passed to setQueue()');
         } catch (\Exception $e) {
