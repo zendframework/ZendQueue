@@ -12,6 +12,7 @@ namespace ZendQueue\Message;
 
 use Countable;
 use Iterator;
+use ZendQueue\Adapter\AdapterInterface;
 use ZendQueue\Exception;
 use ZendQueue\Queue;
 
@@ -39,25 +40,25 @@ class MessageIterator implements Countable, Iterator
     protected $_connected = true;
 
     /**
-     * \ZendQueue\Adapter parent class or instance
+     * Adapter parent class or instance
      *
-     * @var \ZendQueue\Adapter
+     * @var AdapterInterface
      */
     protected $_queue = null;
 
     /**
-     * Name of the class of the \ZendQueue\Adapter object.
+     * Name of the class of the Adapter object.
      *
      * @var string
      */
     protected $_queueClass = null;
 
     /**
-     * \ZendQueue\Message\Message class name
+     * Message class name
      *
      * @var string
      */
-    protected $_messageClass = '\ZendQueue\Message\Message';
+    protected $_messageClass = '\ZendQueue\Message';
 
      /**
      * MessageIterator pointer.
@@ -70,7 +71,7 @@ class MessageIterator implements Countable, Iterator
      * Constructor
      *
      * @param  array $options ('queue', 'messageClass', 'data'=>array());
-     * @return void
+     * @throws Exception\InvalidArgumentException
      */
     public function __construct(array $options = array())
     {
@@ -86,7 +87,7 @@ class MessageIterator implements Countable, Iterator
         }
 
         if (!is_array($options['data'])) {
-            throw new Exception\InvalidArgumentException('array optionsuration must have $options[\'data\'] = array');
+            throw new Exception\InvalidArgumentException('array options must have $options[\'data\'] = array');
         }
 
         // set the message class
@@ -149,7 +150,7 @@ class MessageIterator implements Countable, Iterator
     /**
      * Returns the queue object, or null if this is disconnected message set
      *
-     * @return \ZendQueue\Queue|null
+     * @return Queue|null
      */
     public function getQueue()
     {
@@ -160,9 +161,9 @@ class MessageIterator implements Countable, Iterator
      * Set the queue object, to re-establish a live connection
      * to the queue for a Message that has been de-serialized.
      *
-     * @param  \ZendQueue\Adapter $queue
+     * @param  AdapterInterface $queue
      * @return boolean
-     * @throws \ZendQueue\Exception
+     * @throws Exception\ExceptionInterface
      */
     public function setQueue(Queue $queue)
     {

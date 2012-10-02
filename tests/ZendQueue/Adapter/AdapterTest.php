@@ -10,10 +10,10 @@
 
 namespace ZendQueueTest\Adapter;
 
-use Zend\Queue;
 use Zend\Config;
 use ZendQueue\Adapter;
 use ZendQueue\Message;
+use ZendQueue\Queue;
 
 /*
  * The adapter test class provides a universal test class for all of the
@@ -111,7 +111,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
 
 //        set_error_handler(array($this, 'handleErrors'));
         try {
-            $queue = new Queue\Queue($this->getAdapterName(), $config);
+            $queue = new Queue($this->getAdapterName(), $config);
         } catch (Queue\Exception $e) {
             $this->markTestSkipped();
             restore_error_handler();
@@ -595,7 +595,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
         if (!$queue = $this->createQueue(__FUNCTION__)) {
             return;
         }
-        $this->assertTrue($queue instanceof Queue\Queue);
+        $this->assertTrue($queue instanceof Queue);
 
         if ($queue->isSupported('send')) {
             $msg = 1;

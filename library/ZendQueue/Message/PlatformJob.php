@@ -10,7 +10,9 @@
 
 namespace ZendQueue\Message;
 
+use ZendAPI_Job;
 use ZendQueue\Exception;
+use ZendQueue\Message as QueueMessage;
 
 /**
  * Class for managing Zend Platform JobQueue jobs via Zend_Queue
@@ -19,10 +21,10 @@ use ZendQueue\Exception;
  * @package    Zend_Queue
  * @subpackage Message
  */
-class PlatformJob extends Message
+class PlatformJob extends QueueMessage
 {
     /**
-     * @var \ZendAPI_Job
+     * @var ZendAPI_Job
      */
     protected $_job;
 
@@ -46,13 +48,12 @@ class PlatformJob extends Message
      * be created using that script and any options you provide.
      *
      * @param  array $options
-     * @return void
-     * @throws \ZendQueue\Exception
+     * @throws Exception\InvalidArgumentException
      */
     public function __construct(array $options = array())
     {
         if (isset($options['data'])) {
-            if (!($options['data'] instanceof \ZendAPI_Job)) {
+            if (!($options['data'] instanceof ZendAPI_Job)) {
                 throw new Exception\InvalidArgumentException('Data must be an instance of \ZendAPI_Job');
             }
             $this->_job = $options['data'];
@@ -64,7 +65,7 @@ class PlatformJob extends Message
                 throw new Exception\InvalidArgumentException('The script is mandatory data');
             }
 
-            $this->_job = new \ZendAPI_Job($options['script']);
+            $this->_job = new ZendAPI_Job($options['script']);
             $this->_setJobProperties();
         }
     }
@@ -75,7 +76,7 @@ class PlatformJob extends Message
      * Used within Zend_Queue only.
      *
      * @param  string $id
-     * @return \ZendQueue\Message\PlatformJob
+     * @return PlatformJob
      */
     public function setJobId($id)
     {
@@ -94,9 +95,9 @@ class PlatformJob extends Message
     }
 
     /**
-     * Retrieve the internal \ZendAPI_Job instance
+     * Retrieve the internal ZendAPI_Job instance
      *
-     * @return \ZendAPI_Job
+     * @return ZendAPI_Job
      */
     public function getJob()
     {
@@ -125,7 +126,7 @@ class PlatformJob extends Message
     }
 
     /**
-     * Sets properties on the \ZendAPI_Job instance
+     * Sets properties on the ZendAPI_Job instance
      *
      * Any options in the {@link $_data} array will be checked. Those matching
      * options in \ZendAPI_Job will be used to set those options in that

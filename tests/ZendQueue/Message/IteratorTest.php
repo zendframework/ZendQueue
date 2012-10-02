@@ -10,7 +10,8 @@
 
 namespace ZendQueueTest\Message;
 
-use Zend\Queue;
+use ZendQueue\Queue;
+use ZendQueue\Message;
 
 /*
  * The adapter test class provides a universal test class for all of the
@@ -36,7 +37,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
             'params'    => array(),
         );
 
-        $this->queue = new Queue\Queue('ArrayAdapter', $this->options);
+        $this->queue = new Queue('ArrayAdapter', $this->options);
 
         // construct messages
         $this->message_count = 5;
@@ -63,18 +64,18 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
 
     public function test_setup()
     {
-        $this->assertTrue($this->queue instanceof Queue\Queue);
+        $this->assertTrue($this->queue instanceof Queue);
         $this->assertTrue(is_array($this->options));
 
         foreach ($this->messages as $i => $message) {
-            $this->assertTrue($message instanceof \ZendQueue\Message);
+            $this->assertTrue($message instanceof Message);
             $this->assertEquals('Hello world', $message->body);
         }
     }
 
     public function testConstruct()
     {
-        $this->assertTrue($this->messages instanceof \ZendQueue\Message\MessageIterator);
+        $this->assertTrue($this->messages instanceof Message\MessageIterator);
 
         // parameter validation
         try {
@@ -106,7 +107,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
     public function test_get_setQueue()
     {
         $queue = $this->messages->getQueue();
-        $this->assertTrue($queue instanceof Queue\Queue);
+        $this->assertTrue($queue instanceof Queue);
 
         $this->assertTrue($this->messages->setQueue($queue));
     }

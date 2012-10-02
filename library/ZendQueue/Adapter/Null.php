@@ -30,7 +30,7 @@ class Null extends AbstractAdapter
     /**
      * Does a queue already exist?
      *
-     * @throws \ZendQueue\Exception - not supported.
+     * @throws Exception\UnsupportedMethodCallException - not supported.
      */
     public function isExists($name)
     {
@@ -41,7 +41,7 @@ class Null extends AbstractAdapter
     /**
      * Create a new queue
      *
-     * @throws \ZendQueue\Exception - not supported.
+     * @throws Exception\UnsupportedMethodCallException - not supported.
      */
     public function create($name, $timeout=null)
     {
@@ -51,7 +51,7 @@ class Null extends AbstractAdapter
     /**
      * Delete a queue and all of it's messages
      *
-     * @throws \ZendQueue\Exception - not supported.
+     * @throws Exception\UnsupportedMethodCallException - not supported.
      */
     public function delete($name)
     {
@@ -61,7 +61,7 @@ class Null extends AbstractAdapter
     /**
      * Get an array of all available queues
      *
-     * @throws \ZendQueue\Exception - not supported.
+     * @throws Exception\UnsupportedMethodCallException - not supported.
      */
     public function getQueues()
     {
@@ -71,7 +71,7 @@ class Null extends AbstractAdapter
     /**
      * Return the approximate number of messages in the queue
      *
-     * @throws \ZendQueue\Exception - not supported.
+     * @throws Exception\UnsupportedMethodCallException - not supported.
      */
     public function count(Queue $queue=null)
     {
@@ -85,7 +85,7 @@ class Null extends AbstractAdapter
     /**
      * Send a message to the queue
      *
-     * @throws \ZendQueue\Exception - not supported.
+     * @throws Exception\UnsupportedMethodCallException - not supported.
      */
     public function send($message, Queue $queue=null)
     {
@@ -95,7 +95,7 @@ class Null extends AbstractAdapter
     /**
      * Get messages in the queue
      *
-     * @throws \ZendQueue\Exception - not supported.
+     * @throws Exception\UnsupportedMethodCallException - not supported.
      */
     public function receive($maxMessages=null, $timeout=null, Queue $queue=null)
     {
@@ -105,7 +105,7 @@ class Null extends AbstractAdapter
     /**
      * Delete a message from the queue
      *
-     * @throws \ZendQueue\Exception - not supported.
+     * @throws Exception\UnsupportedMethodCallException - not supported.
      */
     public function deleteMessage(Message $message)
     {

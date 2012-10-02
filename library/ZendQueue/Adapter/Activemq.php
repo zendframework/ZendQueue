@@ -10,6 +10,7 @@
 
 namespace ZendQueue\Adapter;
 
+use Traversable;
 use ZendQueue\Exception;
 use ZendQueue\Message;
 use ZendQueue\Queue;
@@ -41,8 +42,9 @@ class Activemq extends AbstractAdapter
     /**
      * Constructor
      *
-     * @param  array|\Traversable $options An array having configuration data
-     * @param  \ZendQueue\Queue The \ZendQueue\Queue object that created this class
+     * @param  array|Traversable $options An array having configuration data
+     * @param  Queue The Queue object that created this class
+     * @throws Exception\ConnectionException
      */
     public function __construct($options, Queue $queue = null)
     {
@@ -106,7 +108,7 @@ class Activemq extends AbstractAdapter
      * @param  string  $name    queue name
      * @param  integer $timeout default visibility timeout
      * @return void
-     * @throws \ZendQueue\Exception
+     * @throws Exception\UnsupportedMethodCallException
      */
     public function create($name, $timeout=null)
     {
@@ -118,7 +120,7 @@ class Activemq extends AbstractAdapter
      *
      * @param  string $name queue name
      * @return void
-     * @throws \ZendQueue\Exception
+     * @throws Exception\UnsupportedMethodCallException
      */
     public function delete($name)
     {
@@ -131,7 +133,7 @@ class Activemq extends AbstractAdapter
      * Returns true if the message is deleted, false if the deletion is
      * unsuccessful.
      *
-     * @param  \ZendQueue\Message $message
+     * @param  Message $message
      * @return boolean
      */
     public function deleteMessage(Message $message)
@@ -149,7 +151,7 @@ class Activemq extends AbstractAdapter
      * Get an array of all available queues
      *
      * @return void
-     * @throws \ZendQueue\Exception
+     * @throws Exception\UnsupportedMethodCallException
      */
     public function getQueues()
     {
@@ -159,7 +161,7 @@ class Activemq extends AbstractAdapter
     /**
      * Checks if the client is subscribed to the queue
      *
-     * @param  \ZendQueue\Queue $queue
+     * @param  Queue $queue
      * @return boolean
      */
     protected function isSubscribed(Queue $queue)
@@ -170,7 +172,7 @@ class Activemq extends AbstractAdapter
     /**
      * Subscribes the client to the queue.
      *
-     * @param  \ZendQueue\Queue $queue
+     * @param  Queue $queue
      * @return void
      */
     protected function subscribe(Queue $queue)
@@ -190,6 +192,7 @@ class Activemq extends AbstractAdapter
      * @param  integer    $timeout
      * @param  \ZendQueue\Queue $queue
      * @return \ZendQueue\Message\MessageIterator
+     * @throws Exception\UnexpectedValueException
      */
     public function receive($maxMessages=null, $timeout=null, Queue $queue=null)
     {
@@ -247,8 +250,8 @@ class Activemq extends AbstractAdapter
      * Push an element onto the end of the queue
      *
      * @param  string     $message message to send to the queue
-     * @param  \ZendQueue\Queue $queue
-     * @return \ZendQueue\Message\Message
+     * @param  Queue $queue
+     * @return Message
      */
     public function send($message, Queue $queue=null)
     {
@@ -281,9 +284,9 @@ class Activemq extends AbstractAdapter
     /**
      * Returns the length of the queue
      *
-     * @param  \ZendQueue\Queue $queue
+     * @param  ueue $queue
      * @return integer
-     * @throws \ZendQueue\Exception (not supported)
+     * @throws Exception\UnsupportedMethodCallException (not supported)
      */
     public function count(Queue $queue=null)
     {
@@ -295,7 +298,7 @@ class Activemq extends AbstractAdapter
      *
      * @param  string $name
      * @return boolean
-     * @throws \ZendQueue\Exception (not supported)
+     * @throws Exception\UnsupportedMethodCallException (not supported)
      */
     public function isExists($name)
     {

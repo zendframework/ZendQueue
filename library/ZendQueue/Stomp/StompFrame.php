@@ -37,8 +37,8 @@ interface StompFrame
      * Set the value on or off.
      *
      * @param boolean $auto
-     * @return $this;
-     * @throws \ZendQueue\Exception
+     * @return StompFrame
+     * @throws \ZendQueue\Exception\ExceptionInterface
      */
     public function setAutoContentLength($auto);
 
@@ -55,8 +55,8 @@ interface StompFrame
      * Throws an exception if the array values are not strings.
      *
      * @param array $headers
-     * @return $this
-     * @throws \ZendQueue\Exception
+     * @return StompFrame
+     * @throws \ZendQueue\Exception\ExceptionInterface
      */
     public function setHeaders(array $headers);
 
@@ -66,7 +66,7 @@ interface StompFrame
      *
      * @param string $header
      * @return $string
-     * @throws \ZendQueue\Exception
+     * @throws \ZendQueue\Exception\ExceptionInterface
      */
     public function getHeader($header);
 
@@ -76,8 +76,8 @@ interface StompFrame
      *
      * @param string $header
      * @param string $value
-     * @return $this
-     * @throws \ZendQueue\Exception
+     * @return StompFrame
+     * @throws \ZendQueue\Exception\ExceptionInterface
      */
     public function setHeader($header, $value);
 
@@ -85,7 +85,7 @@ interface StompFrame
      * Return the body for this frame
      * returns false if the body does not exist
      *
-     * @return $this
+     * @return StompFrame
      */
     public function getBody();
 
@@ -96,8 +96,8 @@ interface StompFrame
      * Set to null for no body.
      *
      * @param string|null $body
-     * @return $this
-     * @throws \ZendQueue\Exception
+     * @return StompFrame
+     * @throws \ZendQueue\Exception\ExceptionInterface
      */
     public function setBody($body);
 
@@ -105,7 +105,7 @@ interface StompFrame
      * Return the command for this frame
      * return false if the command does not exist
      *
-     * @return $this
+     * @return StompFrame
      */
     public function getCommand();
 
@@ -113,8 +113,8 @@ interface StompFrame
      * Set the body for this frame
      * returns false if the body does not exist
      *
-     * @return $this
-     * @throws \ZendQueue\Exception
+     * @return StompFrame
+     * @throws \ZendQueue\Exception\ExceptionInterface
      */
     public function setCommand($command);
 
@@ -122,7 +122,7 @@ interface StompFrame
     /**
      * Takes the current parameters and returns a Stomp Frame
      *
-     * @throws \ZendQueue\Exception
+     * @throws \ZendQueue\Exception\ExceptionInterface
      * @return string
      */
     public function toFrame();
@@ -136,7 +136,7 @@ interface StompFrame
      * Accepts a frame and deconstructs the frame into its' component parts
      *
      * @param string $frame - a stomp frame
-     * @return $this
+     * @return StompFrame
      */
     public function fromFrame($frame);
 }
