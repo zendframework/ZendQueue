@@ -126,7 +126,17 @@ class Memcacheq extends AbstractAdapter
             $this->getQueues();
         }
 
-        return in_array($name, $this->_queues);
+        $retVal = 
+            array_filter($this->_queues, 
+                function($value) use($name) {
+                    if(strpos($value, $name) === 0) {
+                        return true;
+                    }
+                    return false;    
+                }
+        );
+
+        return !empty($retVal);
     }
 
     /**
