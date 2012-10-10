@@ -126,7 +126,17 @@ class Memcacheq extends AbstractAdapter
             $this->getQueues();
         }
 
-        return in_array($name, $this->_queues);
+        $retVal = 
+            array_filter($this->_queues, 
+                function($value) use($name) {
+                    if(preg_match("/^".$name."(\s+\d+\/\d+)?$/", $value) === 1) {
+                        return true;
+                    }
+                    return false;    
+                }
+        );
+
+        return !empty($retVal);
     }
 
     /**
