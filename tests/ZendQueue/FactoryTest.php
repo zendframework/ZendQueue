@@ -10,7 +10,7 @@
 
 namespace ZendQueueTest;
 
-use Zend\Queue;
+use ZendQueue\Queue;
 
 /** PHPUnit Test Case */
 
@@ -65,9 +65,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                                                  'type'     => $options['type'],
                                                  'port'     => $options['port'])); // optional parameter
 
-        $adapter = new Queue\Queue('DB', $config);
+        $adapter = new Queue('DB', $config);
 
-        $this->assertTrue($adapter instanceof Queue\Queue);
+        $this->assertTrue($adapter instanceof Queue);
     }
 
     public function testMemcacheq()
@@ -81,9 +81,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                         'driverOptions' => array('host' => TESTS_ZEND_QUEUE_MEMCACHEQ_HOST,
                                                  'port' => TESTS_ZEND_QUEUE_MEMCACHEQ_PORT));
 
-        $adapter = new Queue\Queue('Memcacheq', $config);
+        $adapter = new Queue('Memcacheq', $config);
 
-        $this->assertTrue($adapter instanceof Queue\Queue);
+        $this->assertTrue($adapter instanceof Queue);
     }
 
     public function testActivemq()
@@ -98,12 +98,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                         'driverOptions' => array('host'     => TESTS_ZEND_QUEUE_ACTIVEMQ_HOST,
                                                  'port'     => TESTS_ZEND_QUEUE_ACTIVEMQ_PORT,
                                                  'scheme'   => TESTS_ZEND_QUEUE_ACTIVEMQ_SCHEME,
-                                                 'username' => '',
-                                                 'password' => ''));
+                                                 'username' => 'foo',
+                                                 'password' => 'bar'));
 
-        $adapter = new Queue\Queue('Activemq', $config);
+        $adapter = new Queue('Activemq', $config);
 
-        $this->assertTrue($adapter instanceof Queue\Queue);
+        $this->assertTrue($adapter instanceof Queue);
     }
 
     public function testArray()
@@ -111,8 +111,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $config = array('name'          => 'queue1',
                         'driverOptions' => array());
 
-        $adapter = new Queue\Queue('ArrayAdapter', $config);
+        $adapter = new Queue('ArrayAdapter', $config);
 
-        $this->assertTrue($adapter instanceof Queue\Queue);
+        $this->assertTrue($adapter instanceof Queue);
     }
 }
