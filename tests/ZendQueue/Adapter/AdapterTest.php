@@ -10,7 +10,8 @@
 
 namespace ZendQueueTest\Adapter;
 
-use Zend\Queue;
+use ZendQueue\Queue;
+use ZendQueue\Exception;
 use Zend\Config;
 use ZendQueue\Adapter;
 use ZendQueue\Message;
@@ -111,8 +112,8 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
 
 //        set_error_handler(array($this, 'handleErrors'));
         try {
-            $queue = new Queue\Queue($this->getAdapterName(), $config);
-        } catch (Queue\Exception $e) {
+            $queue = new Queue($this->getAdapterName(), $config);
+        } catch (Exception\ExceptionInterface $e) {
             $this->markTestSkipped();
             restore_error_handler();
             return false;
@@ -137,17 +138,13 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
     {
         $config = $this->getTestConfig();
         $config['setting'] = true;
-
         if (!$queue = $this->createQueue(__FUNCTION__, $config)) {
             return;
         }
         $adapter = $queue->getAdapter();
-
         $new = $adapter->getOptions();
-
         $this->assertTrue(is_array($new));
         $this->assertEquals($new['setting'], $config['setting']);
-
         // delete the queue we created
         $queue->deleteQueue();
     }
@@ -185,7 +182,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue(true);
         }
         try {
-            $config = new Config\Config(array('driverOptions' => array() ));
+            $config = new \Zend\Config\Config(array('driverOptions' => array() ));
             $obj = new $class($config);
             $this->fail('__construct() \'name\' is a required configuration value');
         } catch (\Exception $e) {
@@ -193,7 +190,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
         }
 
         try {
-            $config = new Config\Config(array('name' => 'queue1', 'driverOptions' => array(), 'options' => array('opt1' => 'val1')));
+            $config = new \Zend\Config\Config(array('name' => 'queue1', 'driverOptions' => array(), 'options' => array('opt1' => 'val1')));
             $obj = new $class($config);
             $this->fail('__construct() is not supposed to accept a true value for a configuraiton');
         } catch (\Exception $e) {
@@ -259,7 +256,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
             return;
         }
         $adapter = $queue->getAdapter();
-
+        
         // check to see if this function is supported
         $func = 'create';
         if (! $adapter->isSupported($func)) {
@@ -267,8 +264,8 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        if ($adapter->isSupported('getQueues')) {
-            $this->assertTrue(in_array($queue->getName(), $adapter->getQueues()));
+        if ($adapter->isSupported('getQueues') && $adapter->isSupported('isExists')) {
+            $this->assertTrue($adapter->isExists($queue->getName()));
         }
 
         // cannot recreate a queue.
@@ -470,7 +467,9 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($queues));
 
         // make sure our current queue is in this list.
-        $this->assertTrue(in_array($queue->getName(), $queues));
+        if ($adapter->isSupported('isExists')) {
+            $this->assertTrue($adapter->isExists($queue->getName()));
+        }
 
         // delete the queue we created
         $queue->deleteQueue();
@@ -595,7 +594,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
         if (!$queue = $this->createQueue(__FUNCTION__)) {
             return;
         }
-        $this->assertTrue($queue instanceof Queue\Queue);
+        $this->assertTrue($queue instanceof Queue);
 
         if ($queue->isSupported('send')) {
             $msg = 1;
