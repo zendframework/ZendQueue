@@ -47,6 +47,11 @@ class Memcacheq extends AbstractAdapter
      * @var resource
      */
     protected $_socket = null;
+    
+    /**
+     * @var string
+     */
+    protected $_version = null;
 
     /********************************************************************
     * Constructor / Destructor
@@ -86,6 +91,7 @@ class Memcacheq extends AbstractAdapter
 
         $this->_host = $options['host'];
         $this->_port = (int)$options['port'];
+        $this->_version = $this->getVersion();
     }
 
     /**
@@ -126,17 +132,28 @@ class Memcacheq extends AbstractAdapter
             $this->getQueues();
         }
 
-        $retVal = 
-            array_filter($this->_queues, 
-                function($value) use($name) {
-                    if(preg_match("/^".$name."(\s+\d+\/\d+)?$/", $value) === 1) {
-                        return true;
-                    }
-                    return false;    
-                }
-        );
+        $versionNumber = str_replace(".", "", $this->_version);
 
-        return !empty($retVal);
+        // Incompatible change has been introduced in 0.2.0
+        if($versionNumber < 020) {
+            
+            return in_array($name, $this->_queues);
+            
+        } else {
+            
+            $retVal =
+            array_filter($this->_queues,
+                    function($value) use($name) {
+                        if(preg_match("/^".$name."(\s+\d+\/\d+)?$/", $value) === 1) {
+                            return true;
+                        }
+                        return false;
+                    }
+            );
+            
+            return !empty($retVal);
+        }
+        
     }
 
     /**
@@ -218,6 +235,29 @@ class Memcacheq extends AbstractAdapter
         }
 
         return $this->_queues;
+    }
+    
+    /**
+     * Returns the version number of the memcacheq server
+     *
+     * @return string
+     */
+    protected function getVersion()
+    {
+        $response = $this->_sendCommand('stats', array('END'));
+    
+        $version = null;
+        foreach($response as $stat)
+        {
+            if(strpos($stat, "STAT version") !== false)
+            {
+                $splits = explode(" ", $stat);
+                $version = $splits[2];
+                break;
+            }
+        }
+    
+        return $version;
     }
 
     /**
