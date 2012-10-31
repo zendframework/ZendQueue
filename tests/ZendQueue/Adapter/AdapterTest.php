@@ -112,7 +112,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
 //        set_error_handler(array($this, 'handleErrors'));
         try {
             $queue = new Queue($this->getAdapterName(), $config);
-        } catch (Queue\Exception $e) {
+        } catch (\Exception $e) {
             $this->markTestSkipped();
             restore_error_handler();
             return false;
@@ -205,7 +205,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
             return;
         }
         $obj = new $class($queue->getOptions(), $queue);
-        $this->assertTrue($obj instanceof Adapter);
+        $this->assertTrue($obj instanceof Adapter\AbstractAdapter);
     }
 
     // this tests the configuration option $config['messageClass']
@@ -250,7 +250,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
         if (!$queue = $this->createQueue(__FUNCTION__)) {
             return;
         }
-        $this->assertTrue($queue->getAdapter() instanceof Adapter);
+        $this->assertTrue($queue->getAdapter() instanceof Adapter\AbstractAdapter);
     }
 
     public function testCreate()
