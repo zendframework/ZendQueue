@@ -267,8 +267,8 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        if ($adapter->isSupported('getQueues')) {
-            $this->assertTrue(in_array($queue->getName(), $adapter->getQueues()));
+        if ($adapter->isSupported('getQueues') && $adapter->isSupported('isExists')) {
+            $this->assertTrue($adapter->isExists($queue->getName()));
         }
 
         // cannot recreate a queue.
@@ -470,7 +470,9 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($queues));
 
         // make sure our current queue is in this list.
-        $this->assertTrue(in_array($queue->getName(), $queues));
+        if($adapter->isSupported('isExists')) {
+            $this->assertTrue($adapter->isExists($queue->getName()));
+        }
 
         // delete the queue we created
         $queue->deleteQueue();
