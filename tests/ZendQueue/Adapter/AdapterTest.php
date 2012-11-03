@@ -322,7 +322,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($adapter->isExists('perl'));
 
-        $new = $this->createQueueName(__FUNCTION__ . '_2');
+        $new = $this->createQueueName(__FUNCTION__ . '_3');
         $this->assertTrue($adapter->create($new));
         $this->assertTrue($adapter->isExists($new));
         $this->assertTrue($adapter->delete($new));
