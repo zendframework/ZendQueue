@@ -56,7 +56,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                                                  'type'     => $options['type'],
                                                  'port'     => $options['port'])); // optional parameter
 
-        $adapter = new Queue('DB', $config);
+        $adapter = new Queue('Db', $config);
 
         $this->assertTrue($adapter instanceof Queue);
     }

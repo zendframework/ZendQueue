@@ -10,27 +10,18 @@
 
 namespace ZendQueue\Adapter\Db;
 
-use Zend\Db\Table\AbstractTable;
+use Zend\Db\TableGateway\AbstractTableGateway;
 
 /**
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Adapter
  */
-class Queue extends AbstractTable
+class Queue extends AbstractTableGateway
 {
-    /**
-     * @var string
-     */
-    protected $_name = 'queue';
-
-    /**
-     * @var string
-     */
-    protected $_primary = 'queue_id';
-
-    /**
-     * @var mixed
-     */
-    protected $_sequence = true;
+    public function __construct($adapter)
+    {
+        $this->adapter = $adapter;
+        $this->table = 'queue';
+    }
 }
