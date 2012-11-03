@@ -26,7 +26,7 @@ use Zend\Db\Sql\Select;
  * @subpackage UnitTests
  * @group      Zend_Queue
  */
-class DBTest extends AdapterTest
+class DBTest extends AdapterTest 
 {
     /**
      * Stores the original set timezone
@@ -36,7 +36,7 @@ class DBTest extends AdapterTest
 
     protected function setUp()
     {
-        $this->markTestSkipped('Needs Db refactoring');
+//         $this->markTestSkipped('Needs Db refactoring');
         $this->_originaltimezone = date_default_timezone_get();
         date_default_timezone_set('GMT');
     }
@@ -84,7 +84,7 @@ class DBTest extends AdapterTest
         }
 
         return array(
-            'options'       => array(Select::FOR_UPDATE => true),
+            'options'       => array(),
             'driverOptions' => $driverOptions,
         );
     }
@@ -99,19 +99,10 @@ class DBTest extends AdapterTest
 
     public function test_constructor2()
     {
-        try {
-            $config = $this->getTestConfig();
-            $config['options'][Select::FOR_UPDATE] = array();
-            $queue = $this->createQueue(__FUNCTION__, $config);
-            $this->fail('FOR_UPDATE accepted an array');
-        } catch (\Exception $e) {
-            $this->assertTrue(true, 'FOR_UPDATE cannot be an array');
-        }
-
         foreach (array('host', 'username', 'password', 'dbname') as $i => $arg) {
             try {
                 $config = $this->getTestConfig();
-                unset($config['driverOptions'][$arg]);
+                unset($config->driverOptions[$arg]);
                 $queue = $this->createQueue(__FUNCTION__, $config);
                 $this->fail("$arg is required but was missing.");
             } catch (\Exception $e) {
