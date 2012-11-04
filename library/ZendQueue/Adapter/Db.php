@@ -174,9 +174,13 @@ class Db extends AbstractAdapter
         if ($this->isExists($name)) {
             return false;
         }
+        
+        if(null === $timeout) {
+            $timeout = self::CREATE_TIMEOUT_DEFAULT;
+        }
 
         try { 
-            $result = $this->_queueTable->insert(array('queue_name' => $name, 'timeout' => 30));
+            $result = $this->_queueTable->insert(array('queue_name' => $name, 'timeout' => $timeout));
         } catch(\Exception $e) {
             throw new Exception\RuntimeException($e->getMessage(), $e->getCode());
         }
