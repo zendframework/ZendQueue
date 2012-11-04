@@ -10,20 +10,15 @@
 
 namespace ZendQueue\Adapter;
 
-use Zend\Db\Sql\Sql;
-
-use Zend\Db\Adapter\Driver\StatementInterface;
-
-use Zend\Db\ResultSet\ResultSet;
-
-use Zend\Db\TableGateway\Feature\RowGatewayFeature;
-
-use Zend\Db\TableGateway\TableGateway;
-
 use Traversable;
 use Zend\Db as DB_ns;
-use Zend\Db\Sql\Select;
 use Zend\Db\Adapter\Adapter as AbstractDBAdapter;
+use Zend\Db\Adapter\Driver\StatementInterface;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Sql;
+use Zend\Db\TableGateway\Feature\RowGatewayFeature;
+use Zend\Db\TableGateway\TableGateway;
 use ZendQueue\Exception;
 use ZendQueue\Message;
 use ZendQueue\Queue;
@@ -63,8 +58,8 @@ class Db extends AbstractAdapter
         parent::__construct($options, $queue);
 
         $this->_adapter = $this->_initDBAdapter();
-        $this->_queueTable = new \ZendQueue\Adapter\Db\Queue($this->_adapter);
-        $this->_messageTable = new \ZendQueue\Adapter\Db\Message($this->_adapter);
+        $this->_queueTable = new Db\Queue($this->_adapter);
+        $this->_messageTable = new Db\Message($this->_adapter);
         $this->create($queue->getName());
 
     }
@@ -72,7 +67,7 @@ class Db extends AbstractAdapter
     /**
      * Get the TableGateway implementation of the queue table
      * 
-     * @return \Db\Queue
+     * @return Db\Queue
      */
     public function getQueueTable()
     {
@@ -82,7 +77,7 @@ class Db extends AbstractAdapter
     /**
      * Get the TableGateway implementation of the message table
      *
-     * @return \Db\Message
+     * @return Db\Message
      */
     public function getMessageTable()
     {

@@ -36,7 +36,6 @@ class DBTest extends AdapterTest
 
     protected function setUp()
     {
-//         $this->markTestSkipped('Needs Db refactoring');
         $this->_originaltimezone = date_default_timezone_get();
         date_default_timezone_set('GMT');
     }
