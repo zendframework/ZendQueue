@@ -134,4 +134,3 @@ class CustomObject
         return array('a'); // serialize only this variable
     }
 }
-
