@@ -120,4 +120,3 @@ class DBTest extends AdapterTest
         }
     }
 }
-
