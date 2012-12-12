@@ -11,8 +11,7 @@
 namespace ZendQueue\Adapter;
 
 use Traversable;
-use Zend\Db as DB_ns;
-use Zend\Db\Adapter\Adapter as AbstractDBAdapter;
+use Zend\Db as ZendDb;
 use Zend\Db\Adapter\Driver\StatementInterface;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Sql\Select;
@@ -35,17 +34,17 @@ class Db extends AbstractAdapter
     /**
      * @var Db\Queue
      */
-    protected $_queueTable = null;
+    protected $queueTable = null;
 
     /**
      * @var Db\Message
      */
-    protected $_messageTable = null;
+    protected $messageTable = null;
 
     /**
      * @var \Zend\Db\Adapter\Adapter
      */
-    protected $_adapter = null;
+    protected $adapter= null;
     
     /**
      * Constructor
@@ -57,9 +56,9 @@ class Db extends AbstractAdapter
     {
         parent::__construct($options, $queue);
 
-        $this->_adapter = $this->_initDBAdapter();
-        $this->_queueTable = new Db\Queue($this->_adapter);
-        $this->_messageTable = new Db\Message($this->_adapter);
+        $this->adapter= $this->_initDBAdapter();
+        $this->queueTable = new Db\Queue($this->adapter);
+        $this->messageTable = new Db\Message($this->adapter);
         $this->create($queue->getName());
 
     }
@@ -71,7 +70,7 @@ class Db extends AbstractAdapter
      */
     public function getQueueTable()
     {
-        return $this->_queueTable;
+        return $this->queueTable;
     }
     
     /**
@@ -81,7 +80,7 @@ class Db extends AbstractAdapter
      */
     public function getMessageTable()
     {
-        return $this->_messageTable;
+        return $this->messageTable;
     }
 
     /**
@@ -120,8 +119,8 @@ class Db extends AbstractAdapter
         unset($options['type']);
 
         try {
-            $db = new DB_ns\Adapter\Adapter(array_merge($options, array('driver' => $type)));
-        } catch (DB_ns\Exception\ExceptionInterface $e) {
+            $db = new ZendDb\Adapter\Adapter(array_merge($options, array('driver' => $type)));
+        } catch (ZendDb\Exception\ExceptionInterface $e) {
             throw new Exception\ConnectionException('Error connecting to database: ' . $e->getMessage(), $e->getCode(), $e);
         }
 
@@ -180,7 +179,7 @@ class Db extends AbstractAdapter
         }
 
         try { 
-            $result = $this->_queueTable->insert(array('queue_name' => $name, 'timeout' => $timeout));
+            $result = $this->queueTable->insert(array('queue_name' => $name, 'timeout' => $timeout));
         } catch(\Exception $e) {
             throw new Exception\RuntimeException($e->getMessage(), $e->getCode());
         }
@@ -206,13 +205,13 @@ class Db extends AbstractAdapter
         $id = $this->getQueueId($name); // get primary key
 
         // if the queue does not exist then it must already be deleted.
-        $list = $this->_queueTable->select(array('queue_id' => $id));
+        $list = $this->queueTable->select(array('queue_id' => $id));
         if (count($list) === 0) {
             return false;
         }
 
         try {
-            $remove = $this->_queueTable->delete(array('queue_id' => $id));
+            $remove = $this->queueTable->delete(array('queue_id' => $id));
         } catch (\Exception $e) {
             throw new Exception\RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
@@ -235,7 +234,7 @@ class Db extends AbstractAdapter
      */
     public function getQueues()
     {
-        $result = $this->_queueTable->select();
+        $result = $this->queueTable->select();
         foreach($result as $one) {
             $this->_queues[$one['queue_name']] = (int)$one['queue_id'];
         }
@@ -258,7 +257,7 @@ class Db extends AbstractAdapter
             $queue = $this->_queue;
         }
 
-        $info  = $this->_messageTable->select(array('queue_id' => $this->getQueueId($queue->getName())));
+        $info  = $this->messageTable->select(array('queue_id' => $this->getQueueId($queue->getName())));
 
         // return count results
         return $info->count();
@@ -303,7 +302,7 @@ class Db extends AbstractAdapter
         // $msg->timeout = ??? @TODO
 
         try {
-            $this->_messageTable->insert($msg);
+            $this->messageTable->insert($msg);
         } catch (\Exception $e) {
             throw new Exception\RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
@@ -338,9 +337,9 @@ class Db extends AbstractAdapter
         }
 
         $msgs      = array();
-        $name      = $this->_messageTable->table;
+        $name      = $this->messageTable->table;
         $microtime = microtime(true); // cache microtime
-        $db        = $this->_messageTable->getAdapter();
+        $db        = $this->messageTable->getAdapter();
         $connection = $db->getDriver()->getConnection();
 
         // start transaction handling
@@ -348,7 +347,7 @@ class Db extends AbstractAdapter
             if ($maxMessages > 0 ) { // ZF-7666 LIMIT 0 clause not included.
                 $connection->beginTransaction();
 
-                $sql = new Sql($this->_adapter);
+                $sql = new Sql($this->adapter);
                 $select = $sql->select();
                 $select->from($name);
                 $select->where(array('queue_id' => $this->getQueueId($queue->getName())));
@@ -402,7 +401,7 @@ class Db extends AbstractAdapter
     public function deleteMessage(Message $message)
     {
         $data = $message->toArray();
-        $db    = $this->_messageTable->delete(array('handle' => $data['handle']));
+        $db    = $this->messageTable->delete(array('handle' => $data['handle']));
 
         if ($db) {
             return true;
@@ -455,7 +454,7 @@ class Db extends AbstractAdapter
             return $this->_queues[$name];
         }
 
-        $result = $this->_queueTable->select(array('queue_name' => $name));
+        $result = $this->queueTable->select(array('queue_name' => $name));
         foreach($result as $one) {
             $this->_queues[$name] = (int)$one['queue_id'];
         }
