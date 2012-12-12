@@ -112,7 +112,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
 //        set_error_handler(array($this, 'handleErrors'));
         try {
             $queue = new Queue($this->getAdapterName(), $config);
-        } catch (Queue\Exception $e) {
+        } catch (\Exception $e) {
             $this->markTestSkipped();
             restore_error_handler();
             return false;
@@ -205,7 +205,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
             return;
         }
         $obj = new $class($queue->getOptions(), $queue);
-        $this->assertTrue($obj instanceof Adapter);
+        $this->assertTrue($obj instanceof Adapter\AbstractAdapter);
     }
 
     // this tests the configuration option $config['messageClass']
@@ -250,7 +250,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
         if (!$queue = $this->createQueue(__FUNCTION__)) {
             return;
         }
-        $this->assertTrue($queue->getAdapter() instanceof Adapter);
+        $this->assertTrue($queue->getAdapter() instanceof Adapter\AbstractAdapter);
     }
 
     public function testCreate()
@@ -267,8 +267,8 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        if ($adapter->isSupported('getQueues')) {
-            $this->assertTrue(in_array($queue->getName(), $adapter->getQueues()));
+        if ($adapter->isSupported('getQueues') && $adapter->isSupported('isExists')) {
+            $this->assertTrue($adapter->isExists($queue->getName()));
         }
 
         // cannot recreate a queue.
@@ -322,7 +322,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($adapter->isExists('perl'));
 
-        $new = $this->createQueueName(__FUNCTION__ . '_2');
+        $new = $this->createQueueName(__FUNCTION__ . '_3');
         $this->assertTrue($adapter->create($new));
         $this->assertTrue($adapter->isExists($new));
         $this->assertTrue($adapter->delete($new));
@@ -470,7 +470,9 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($queues));
 
         // make sure our current queue is in this list.
-        $this->assertTrue(in_array($queue->getName(), $queues));
+        if($adapter->isSupported('isExists')) {
+            $this->assertTrue($adapter->isExists($queue->getName()));
+        }
 
         // delete the queue we created
         $queue->deleteQueue();
