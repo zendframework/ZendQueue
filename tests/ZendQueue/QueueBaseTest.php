@@ -10,7 +10,7 @@
 
 namespace ZendQueueTest;
 
-use Zend\Queue;
+use ZendQueue\Queue;
 use ZendQueue\Adapter;
 
 /*
@@ -36,7 +36,7 @@ abstract class QueueBaseTest extends \PHPUnit_Framework_TestCase
             'name'      => 'queue1',
         );
 
-        $this->queue = new Queue\Queue('Null', $this->config);
+        $this->queue = new Queue('Null', $this->config);
     }
 
     protected function tearDown()
@@ -45,9 +45,9 @@ abstract class QueueBaseTest extends \PHPUnit_Framework_TestCase
 
     public function testConst()
     {
-        $this->assertTrue(is_string(Queue\Queue::TIMEOUT));
-        $this->assertTrue(is_integer(Queue\Queue::VISIBILITY_TIMEOUT));
-        $this->assertTrue(is_string(Queue\Queue::NAME));
+        $this->assertTrue(is_string(Queue::TIMEOUT));
+        $this->assertTrue(is_integer(Queue::VISIBILITY_TIMEOUT));
+        $this->assertTrue(is_string(Queue::NAME));
     }
 
     /**
@@ -67,11 +67,11 @@ abstract class QueueBaseTest extends \PHPUnit_Framework_TestCase
 
         $zend_config = new \Zend\Config\Config($config);
 
-        $obj = new Queue\Queue($config);
-        $this->assertTrue($obj instanceof Queue\Queue);
+        $obj = new Queue($config);
+        $this->assertTrue($obj instanceof Queue);
 
-        $obj = new Queue\Queue($zend_config);
-        $this->assertTrue($obj instanceof Queue\Queue);
+        $obj = new Queue($zend_config);
+        $this->assertTrue($obj instanceof Queue);
     }
 
     public function testDebugInfo()
@@ -90,21 +90,21 @@ abstract class QueueBaseTest extends \PHPUnit_Framework_TestCase
     public function testSetAndGetAdapter()
     {
         $adapter = new Adapter\ArrayAdapter($this->config);
-        $this->assertTrue($this->queue->setAdapter($adapter) instanceof Queue\Queue);
+        $this->assertTrue($this->queue->setAdapter($adapter) instanceof Queue);
         $this->assertTrue($this->queue->getAdapter($adapter) instanceof Adapter\ArrayAdapter);
     }
 
     public function testSetAndGetMessageClass()
     {
         $class = 'test';
-        $this->assertTrue($this->queue->setMessageClass($class) instanceof Queue\Queue);
+        $this->assertTrue($this->queue->setMessageClass($class) instanceof Queue);
         $this->assertEquals($class, $this->queue->getMessageClass());
     }
 
     public function testSetAndGetMessageSetClass()
     {
         $class = 'test';
-        $this->assertTrue($this->queue->setMessageSetClass($class) instanceof Queue\Queue);
+        $this->assertTrue($this->queue->setMessageSetClass($class) instanceof Queue);
         $this->assertEquals($class, $this->queue->getMessageSetClass());
     }
 
@@ -133,7 +133,7 @@ abstract class QueueBaseTest extends \PHPUnit_Framework_TestCase
         // isExists
         $queue = 'test';
         $new = $this->queue->createQueue($queue);
-        $this->assertTrue($new instanceof Queue\Queue);
+        $this->assertTrue($new instanceof Queue);
 
         // createQueue() will return true if the adapter cannot
         // do isExist($queue);

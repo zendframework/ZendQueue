@@ -28,6 +28,14 @@ use ZendQueue\Adapter;
  */
 class MemcacheqTest extends AdapterTest
 {
+    public function setUp()
+    {
+        if (!extension_loaded('memcache')) {
+            $this->markTestSkipped('memcache not loaded');
+        }
+        return parent::setUp();
+    }
+
     /**
      * getAdapterName() is an method to help make AdapterTest work with any
      * new adapters

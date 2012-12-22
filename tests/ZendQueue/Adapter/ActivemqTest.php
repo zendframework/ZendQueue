@@ -30,7 +30,7 @@ class ActivemqTest extends AdapterTest
 {
     public function setUp()
     {
-        if (!constant('TESTS_ZEND_QUEUE_ACTIVEMQ_ENABLED')) {
+        if (!defined('TESTS_ZEND_QUEUE_ACTIVEMQ_ENABLED')) {
             $this->markTestSkipped('Zend_Queue ActiveMQ adapter tests are not enabled');
         }
     }

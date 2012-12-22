@@ -10,7 +10,7 @@
 
 namespace ZendQueueTest;
 
-use Zend\Queue;
+use ZendQueue\Queue;
 
 /** PHPUnit Test Case */
 
@@ -51,7 +51,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testDb()
     {
-        if ( TESTS_ZEND_QUEUE_DB === false ) {
+        if ( !defined('TESTS_ZEND_QUEUE_DB') || TESTS_ZEND_QUEUE_DB === false ) {
             $this->markTestSkipped('DB setup required');
         }
 
@@ -65,14 +65,16 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                                                  'type'     => $options['type'],
                                                  'port'     => $options['port'])); // optional parameter
 
-        $adapter = new Queue\Queue('DB', $config);
+        $adapter = new Queue('DB', $config);
 
-        $this->assertTrue($adapter instanceof Queue\Queue);
+        $this->assertTrue($adapter instanceof Queue);
     }
 
     public function testMemcacheq()
     {
-        if ( TESTS_ZEND_QUEUE_MEMCACHEQ_HOST === false ||
+        if ( !defined('TESTS_ZEND_QUEUE_MEMCACHEQ_HOST') ||
+             !defined('TESTS_ZEND_QUEUE_MEMCACHEQ_PORT') ||
+             TESTS_ZEND_QUEUE_MEMCACHEQ_HOST === false ||
              TESTS_ZEND_QUEUE_MEMCACHEQ_PORT === false ) {
             $this->markTestSkipped('MemcacheQ setup required');
         }
@@ -81,14 +83,17 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                         'driverOptions' => array('host' => TESTS_ZEND_QUEUE_MEMCACHEQ_HOST,
                                                  'port' => TESTS_ZEND_QUEUE_MEMCACHEQ_PORT));
 
-        $adapter = new Queue\Queue('Memcacheq', $config);
+        $adapter = new Queue('Memcacheq', $config);
 
-        $this->assertTrue($adapter instanceof Queue\Queue);
+        $this->assertTrue($adapter instanceof Queue);
     }
 
     public function testActivemq()
     {
-        if ( TESTS_ZEND_QUEUE_ACTIVEMQ_SCHEME === false ||
+        if ( !defined('TESTS_ZEND_QUEUE_ACTIVEMQ_SCHEME') ||
+             !defined('TESTS_ZEND_QUEUE_ACTIVEMQ_HOST') ||
+             !defined('TESTS_ZEND_QUEUE_ACTIVEMQ_PORT') ||
+             TESTS_ZEND_QUEUE_ACTIVEMQ_SCHEME === false ||
              TESTS_ZEND_QUEUE_ACTIVEMQ_HOST === false ||
              TESTS_ZEND_QUEUE_ACTIVEMQ_PORT === false ) {
             $this->markTestSkipped('ActiveMQ setup required');
@@ -101,9 +106,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                                                  'username' => '',
                                                  'password' => ''));
 
-        $adapter = new Queue\Queue('Activemq', $config);
+        $adapter = new Queue('Activemq', $config);
 
-        $this->assertTrue($adapter instanceof Queue\Queue);
+        $this->assertTrue($adapter instanceof Queue);
     }
 
     public function testArray()
@@ -111,8 +116,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $config = array('name'          => 'queue1',
                         'driverOptions' => array());
 
-        $adapter = new Queue\Queue('ArrayAdapter', $config);
+        $adapter = new Queue('ArrayAdapter', $config);
 
-        $this->assertTrue($adapter instanceof Queue\Queue);
+        $this->assertTrue($adapter instanceof Queue);
     }
 }
