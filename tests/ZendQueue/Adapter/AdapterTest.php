@@ -10,7 +10,7 @@
 
 namespace ZendQueueTest\Adapter;
 
-use Zend\Queue;
+use ZendQueue\Queue;
 use Zend\Config;
 use ZendQueue\Adapter;
 use ZendQueue\Message;
@@ -48,7 +48,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->fail('You must overload this function: getAdapterName()');
 
-        // example for \ZendQueue\Adatper\ArrayAdapter
+        // example for \ZendQueue\Adapter\ArrayAdapter
         return 'ArrayAdapter';
     }
 
@@ -111,8 +111,8 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
 
 //        set_error_handler(array($this, 'handleErrors'));
         try {
-            $queue = new Queue\Queue($this->getAdapterName(), $config);
-        } catch (Queue\Exception $e) {
+            $queue = new Queue($this->getAdapterName(), $config);
+        } catch (Exception $e) {
             $this->markTestSkipped();
             restore_error_handler();
             return false;
@@ -595,7 +595,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
         if (!$queue = $this->createQueue(__FUNCTION__)) {
             return;
         }
-        $this->assertTrue($queue instanceof Queue\Queue);
+        $this->assertTrue($queue instanceof Queue);
 
         if ($queue->isSupported('send')) {
             $msg = 1;

@@ -10,7 +10,7 @@
 
 namespace ZendQueueTest;
 
-use Zend\Queue;
+use ZendQueue\Queue;
 use Zend\Log;
 use Zend\Log\Writer;
 use ZendQueue\Adapter;
@@ -39,7 +39,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase
             'params'    => array(),
         );
 
-        $this->queue = new Queue\Queue('ArrayAdapter', $this->config);
+        $this->queue = new Queue('ArrayAdapter', $this->config);
     }
 
     protected function tearDown()
@@ -48,9 +48,9 @@ class QueueTest extends \PHPUnit_Framework_TestCase
 
     public function testConst()
     {
-        $this->assertTrue(is_string(Queue\Queue::TIMEOUT));
-        $this->assertTrue(is_integer(Queue\Queue::VISIBILITY_TIMEOUT));
-        $this->assertTrue(is_string(Queue\Queue::NAME));
+        $this->assertTrue(is_string(Queue::TIMEOUT));
+        $this->assertTrue(is_integer(Queue::VISIBILITY_TIMEOUT));
+        $this->assertTrue(is_string(Queue::NAME));
     }
 
     /**
@@ -70,11 +70,11 @@ class QueueTest extends \PHPUnit_Framework_TestCase
 
         $zend_config = new \Zend\Config\Config($config);
 
-        $obj = new Queue\Queue($config);
-        $this->assertTrue($obj instanceof Queue\Queue);
+        $obj = new Queue($config);
+        $this->assertTrue($obj instanceof Queue);
 
-        $obj = new Queue\Queue($zend_config);
-        $this->assertTrue($obj instanceof Queue\Queue);
+        $obj = new Queue($zend_config);
+        $this->assertTrue($obj instanceof Queue);
     }
 
     public function test_getConfig()
@@ -87,27 +87,27 @@ class QueueTest extends \PHPUnit_Framework_TestCase
     public function test_set_getAdapter()
     {
         $adapter = new Adapter\ArrayAdapter($this->config);
-        $this->assertTrue($this->queue->setAdapter($adapter) instanceof Queue\Queue);
+        $this->assertTrue($this->queue->setAdapter($adapter) instanceof Queue);
         $this->assertTrue($this->queue->getAdapter($adapter) instanceof Adapter\ArrayAdapter);
     }
 
     public function test_set_getMessageClass()
     {
         $class = 'test';
-        $this->assertTrue($this->queue->setMessageClass($class) instanceof Queue\Queue);
+        $this->assertTrue($this->queue->setMessageClass($class) instanceof Queue);
         $this->assertEquals($class, $this->queue->getMessageClass());
     }
 
     public function test_set_getMessageSetClass()
     {
         $class = 'test';
-        $this->assertTrue($this->queue->setMessageSetClass($class) instanceof Queue\Queue);
+        $this->assertTrue($this->queue->setMessageSetClass($class) instanceof Queue);
         $this->assertEquals($class, $this->queue->getMessageSetClass());
     }
 
     public function test_set_getName()
     {
-        // $this->assertTrue($this->queue->setName($new) instanceof Zend_Queue);
+        // $this->assertTrue($this->queue->setName($new) instanceof ZendQueue_Queue);
         $this->assertEquals($this->config['name'], $this->queue->getName());
     }
 
@@ -131,7 +131,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase
         // isExists
         $queue = 'test';
         $new = $this->queue->createQueue($queue);
-        $this->assertTrue($new instanceof Queue\Queue);
+        $this->assertTrue($new instanceof Queue);
         $this->assertFalse($this->queue->createQueue($queue));
 
         $this->assertTrue($new->deleteQueue());
@@ -184,7 +184,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase
     {
         $logger = new Log\Logger(new Writer\Null);
 
-        $this->assertTrue($this->queue->setLogger($logger) instanceof Queue\Queue);
+        $this->assertTrue($this->queue->setLogger($logger) instanceof Queue);
         $this->assertTrue($this->queue->getLogger() instanceof Log\Logger);
 
         // parameter verification
