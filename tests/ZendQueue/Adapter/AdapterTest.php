@@ -11,7 +11,7 @@
 namespace ZendQueueTest\Adapter;
 
 use Zend\Config;
-use ZendQueue\Adapter;
+use ZendQueue\Adapter\AdapterInterface;
 use ZendQueue\Message;
 use ZendQueue\Queue;
 
@@ -205,7 +205,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
             return;
         }
         $obj = new $class($queue->getOptions(), $queue);
-        $this->assertTrue($obj instanceof Adapter);
+        $this->assertTrue($obj instanceof AdapterInterface);
     }
 
     // this tests the configuration option $config['messageClass']
@@ -250,7 +250,7 @@ abstract class AdapterTest extends \PHPUnit_Framework_TestCase
         if (!$queue = $this->createQueue(__FUNCTION__)) {
             return;
         }
-        $this->assertTrue($queue->getAdapter() instanceof Adapter);
+        $this->assertTrue($queue->getAdapter() instanceof AdapterInterface);
     }
 
     public function testCreate()

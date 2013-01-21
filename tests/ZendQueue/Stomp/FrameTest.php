@@ -35,7 +35,7 @@ class FrameTest extends \PHPUnit_Framework_TestCase
     public function test_to_fromFrame()
     {
         $correct = 'SEND' . Stomp\Frame::EOL;
-        $correct .= 'content-length: 11' . Stomp\Frame::EOL;
+        $correct .= 'content-length:11' . Stomp\Frame::EOL;
         $correct .= Stomp\Frame::EOL;
         $correct .= $this->body;
         $correct .= Stomp\Frame::END_OF_FRAME;
