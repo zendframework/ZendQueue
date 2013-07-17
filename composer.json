@@ -20,13 +20,13 @@
         }
     ],
     "require-dev": {
-        "zendframework/zend-config": "2.0.*",
-        "zendframework/zend-db": "2.0.*",
-        "zendframework/zend-json": "2.0.*"
+        "zendframework/zend-config": "~2",
+        "zendframework/zend-db": "~2",
+        "zendframework/zend-json": "~2"
     },
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zend-stdlib": "2.0.*"
+        "zendframework/zend-stdlib": "~2"
     },
     "suggest": {
         "zendframework/zend-db": "Zend\\Db required if you are using the DB queue adapter"
