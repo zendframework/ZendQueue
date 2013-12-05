@@ -120,4 +120,22 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($adapter instanceof Queue);
     }
+
+    public function testAmqp()
+    {
+        $config = array(
+            'name' => 'queue1',
+            'driverOptions' => array(
+                'host' => TESTS_ZEND_QUEUE_AMQP_HOST,
+                'port' => TESTS_ZEND_QUEUE_AMQP_PORT,
+                'user' => TESTS_ZEND_QUEUE_AMQP_USER,
+                'pass' => TESTS_ZEND_QUEUE_AMQP_PASS,
+                'vhost' => TESTS_ZEND_QUEUE_AMQP_VHOST,
+                'debug' => TESTS_ZEND_QUEUE_AMQP_DEBUG,
+            )
+        );
+        $adapter = new Queue('Amqp', $config);
+        $this->assertTrue($adapter instanceof Queue);
+        $this->assertTrue($adapter->deleteQueue());
+    }
 }

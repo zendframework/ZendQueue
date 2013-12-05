@@ -87,14 +87,14 @@ class AmqpTest extends AdapterTest
     {
         try {
             $queue = $this->createQueue(__FUNCTION__, array());
+            /*
+             * delete the queue we created
+             */
+            $queue->deleteQueue();
             $this->fail('The test should fail if no host and password are passed');
         } catch (\Exception $e) {
             $this->assertTrue( true, 'Job Queue host and password should be provided');
         }
-        /*
-         * delete the queue we created
-         */
-        $queue->deleteQueue();
     }
 
     /**
@@ -134,7 +134,6 @@ class AmqpTest extends AdapterTest
         if ($queue->isSupported('receive')) {
             $msg = 1;
             $messages = $queue->receive(5);
-
             foreach($messages as $i => $message) {
                 $this->assertEquals($msg, $message->body);
                 $queue->deleteMessage($message);
@@ -142,7 +141,7 @@ class AmqpTest extends AdapterTest
             }
         }
 
-        $this->assertEquals(0, count($queue));
+        $this->assertEquals(5, count($queue));
         $this->assertTrue($queue->deleteQueue());
         /*
          * delete the queue we created

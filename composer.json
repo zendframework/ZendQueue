@@ -21,13 +21,13 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zend-stdlib": "~2"
+        "zendframework/zend-stdlib": "~2",
+        "videlalvaro/php-amqplib": "~2"
     },
     "require-dev": {
         "zendframework/zend-config": "~2",
         "zendframework/zend-db": "~2",
         "zendframework/zend-json": "~2",
-        "videlalvaro/php-amqplib": "~2.0",
         "phpunit/phpunit": "3.7.*"
     },
     "suggest": {

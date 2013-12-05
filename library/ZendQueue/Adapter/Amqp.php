@@ -27,10 +27,10 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class Amqp extends AbstractAdapter
 {
-    const DEFAULT_HOST = 'localhost';
-    const DEFAULT_PORT = 8672;
-    const DEFAULT_USER = 'guest';
-    const DEFAULT_PASS = 'guest';
+    const DEFAULT_HOST  = 'localhost';
+    const DEFAULT_PORT  = 5672;
+    const DEFAULT_USER  = 'guest';
+    const DEFAULT_PASS  = 'guest';
     const DEFAULT_VHOST = '/';
     const DEFAULT_DEBUG = false;
 
@@ -51,6 +51,13 @@ class Amqp extends AbstractAdapter
      */
     private $exchange = 'router';
 
+
+    /**
+     *
+     * @var string
+     */
+    private $exchangeType = 'direct';
+
     /**
      *
      * @var string
@@ -67,25 +74,33 @@ class Amqp extends AbstractAdapter
     {
         parent::__construct($options, $queue);
         $options = &$this->_options['driverOptions'];
-        if (!array_key_exists('host', $options)) {
-            $options['host'] = self::DEFAULT_HOST;
+        if (!array_key_exists($key = 'host', $options)) {
+            $options[$key] = self::DEFAULT_HOST;
         }
-        if (!array_key_exists('port', $options)) {
-            $options['port'] = self::DEFAULT_PORT;
+        if (!array_key_exists($key = 'port', $options)) {
+            $options[$key] = self::DEFAULT_PORT;
         }
-        if (!array_key_exists('user', $options)) {
-            $options['user'] = self::DEFAULT_USER;
+        if (!array_key_exists($key = 'user', $options)) {
+            $options[$key] = self::DEFAULT_USER;
         }
-        if (!array_key_exists('pass', $options)) {
-            $options['pass'] = self::DEFAULT_PASS;
+        if (!array_key_exists($key = 'pass', $options)) {
+            $options[$key] = self::DEFAULT_PASS;
         }
-        if (!array_key_exists('vhost', $options)) {
-            $options['vhost'] = self::DEFAULT_VHOST;
+        if (!array_key_exists($key = 'vhost', $options)) {
+            $options[$key] = self::DEFAULT_VHOST;
         }
-        if (!array_key_exists('debug', $options)) {
-            $options['debug'] = self::DEFAULT_DEBUG;
+        if (!array_key_exists($key = 'debug', $options)) {
+            $options[$key] = self::DEFAULT_DEBUG;
         }
-        defined('AMQP_DEBUG') ? AMQP_DEBUG : $options['debug'];
+        if (array_key_exists($key = 'exchange', $options)) {
+            $this->exchange = $options[$key];
+        }
+        if (array_key_exists($key = 'exchangeType', $options)) {
+            $this->exchangeType = $options[$key];
+        }
+        if (array_key_exists($key = 'consumerTag', $options)) {
+            $this->consumerTag = $options[$key];
+        }
         $this->initAdapter();
     }
 
@@ -95,6 +110,7 @@ class Amqp extends AbstractAdapter
     protected function initAdapter()
     {
         $options = &$this->_options['driverOptions'];
+        defined('AMQP_DEBUG') ? AMQP_DEBUG : $options['debug'];
         $this->conn = new AMQPConnection($options['host'], $options['port'], $options['user'], $options['pass'], $options['vhost']);
         $this->ch = $this->conn->channel();
     }
@@ -143,7 +159,7 @@ class Amqp extends AbstractAdapter
                 return false;
             }
             $queue_declare = $this->ch->queue_declare($name, $passive=false, $durable=true, $exclusive=false, $auto_delete=false);
-            $this->ch->exchange_declare($this->exchange, $type='direct', $passive=false, $durable=true, $auto_delete=false);
+            $this->ch->exchange_declare($this->exchange, $this->exchangeType, $passive=false, $durable=true, $auto_delete=false);
             $this->ch->queue_bind($name, $this->exchange);
             $this->_queues[] = $name;
             return true;
@@ -208,6 +224,9 @@ class Amqp extends AbstractAdapter
         if ($queue === null) {
             $queue = $this->_queue;
         }
+        $this->ch->close();
+        $this->conn->close();
+        $this->initAdapter();
         list($name, $messageCount, $consumerCount) = $this->ch->queue_declare($queue->getName(), $passive=false, $durable=true, $exclusive=false, $auto_delete=false);
         return $messageCount;
     }
@@ -229,14 +248,14 @@ class Amqp extends AbstractAdapter
             $queue = $this->_queue;
         }
         if (is_scalar($message)) {
-            $message = (string) $message;
+            $message = (string)$message;
         }
         if (is_string($message)) {
             $message = trim($message);
         }
-        $msg = new AMQPMessage($message);
         try {
-            $this->ch->basic_publish($msg, $this->exchange);
+            $amqpMessage = new AMQPMessage($message);
+            $this->ch->basic_publish($amqpMessage, $this->exchange);
         } catch (\Exception $e) {
             throw new Exception\RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
@@ -273,11 +292,8 @@ class Amqp extends AbstractAdapter
         $i = 0;
         $this->msgs = array();
         if ($maxMessages > 0 ) {
-            $this->ch->basic_consume($queue->getName(), $this->consumerTag, $no_local=false, $no_ack=false,
-                $exclusive=false, $nowait=($timeout === null ? true : false), $callback=array($this, 'processMsgAck')
-            );
-            while (count($this->ch->callbacks) && $i < $maxMessages) {
-                $this->ch->wait();
+            while(($amqpMessage = $this->ch->basic_get($queue->getName())) && $i < $maxMessages) {
+                $this->processMsgAck($amqpMessage);
                 $i++;
             }
         }
@@ -293,40 +309,44 @@ class Amqp extends AbstractAdapter
 
     /**
      *
-     * @param PhpAmqpLib\Message\AMQPMessage $msg
+     * @param PhpAmqpLib\Message\AMQPMessage $amqpMessage
      */
-    public function processMsgAck(\PhpAmqpLib\Message\AMQPMessage $msg)
+    public function processMsgAck(\PhpAmqpLib\Message\AMQPMessage $amqpMessage)
     {
         $data = array(
             'handle' => md5(uniqid(rand(), true)),
-            'body'   => (string)$msg->body,
+            'body'   => (string)$amqpMessage->body,
         );
         $this->msgs[] = $data;
         /*
          * acknowledge one or more messages
          */
-        $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
-        /*
-         * Send a message with the string "quit" to cancel the consumer.
-         */
-        if ('quit' === $msg->body) {
-            $msg->delivery_info['channel']->basic_cancel($msg->delivery_info['consumer_tag']);
+        if (array_key_exists('channel', $amqpMessage->delivery_info)) {
+            $amqpMessage->delivery_info['channel']->basic_ack($amqpMessage->delivery_info['delivery_tag']);
+            /*
+             * Send a message with the string "quit" to cancel the consumer.
+             */
+            if ('quit' === $amqpMessage->body) {
+                $amqpMessage->delivery_info['channel']->basic_cancel($amqpMessage->delivery_info['consumer_tag']);
+            }
+        } else {
+            $this->ch->basic_ack($amqpMessage->delivery_info['delivery_tag']);
         }
     }
 
     /**
      *
-     * @param PhpAmqpLib\Message\AMQPMessage $msg
+     * @param PhpAmqpLib\Message\AMQPMessage $amqpMessage
      */
-    public function processMsgNoneAck(\PhpAmqpLib\Message\AMQPMessage $msg)
+    public function processMsgNoneAck(\PhpAmqpLib\Message\AMQPMessage $amqpMessage)
     {
-        $this->count++;
         /*
          * Send a message with the string "quit" to cancel the consumer.
         */
-        if ('quit' === $msg->body) {
-            $msg->delivery_info['channel']->basic_cancel($msg->delivery_info['consumer_tag']);
+        if ('quit' === $amqpMessage->body) {
+            $amqpMessage->delivery_info['channel']->basic_cancel($amqpMessage->delivery_info['consumer_tag']);
         }
+        $this->count++;
     }
 
     /**
@@ -368,14 +388,14 @@ class Amqp extends AbstractAdapter
     public function getCapabilities()
     {
         return array(
-                'create'        => true,
-                'delete'        => true,
-                'send'          => true,
-                'receive'       => true,
-                'deleteMessage' => false,
-                'getQueues'     => false,
-                'count'         => true,
-                'isExists'      => true,
+            'create'        => true,
+            'delete'        => true,
+            'send'          => true,
+            'receive'       => true,
+            'deleteMessage' => false,
+            'getQueues'     => false,
+            'count'         => true,
+            'isExists'      => true,
         );
     }
 }
