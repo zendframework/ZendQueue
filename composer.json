@@ -19,16 +19,19 @@
             "url": "http://packages.zendframework.com/"
         }
     ],
-    "require-dev": {
-        "zendframework/zend-config": "~2",
-        "zendframework/zend-db": "~2",
-        "zendframework/zend-json": "~2"
-    },
     "require": {
         "php": ">=5.3.3",
         "zendframework/zend-stdlib": "~2"
     },
+    "require-dev": {
+        "zendframework/zend-config": "~2",
+        "zendframework/zend-db": "~2",
+        "zendframework/zend-json": "~2",
+        "videlalvaro/php-amqplib": "~2",
+        "phpunit/phpunit": "3.7.*"
+    },
     "suggest": {
-        "zendframework/zend-db": "Zend\\Db required if you are using the DB queue adapter"
+        "zendframework/zend-db": "Zend\\Db required if you are using the DB queue adapter",
+        "videlalvaro/php-amqplib": "PhpAmqpLib required if you are using the Amqp queue adapter"
     }
 }

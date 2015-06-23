@@ -77,7 +77,6 @@ abstract class QueueBaseTest extends \PHPUnit_Framework_TestCase
     public function testDebugInfo()
     {
         $this->assertTrue(is_array($this->queue->debugInfo()));
-        // var_dump($this->queue->debugInfo());
     }
 
     public function testGetOptions()
