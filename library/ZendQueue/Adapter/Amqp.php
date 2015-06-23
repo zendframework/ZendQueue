@@ -116,15 +116,6 @@ class Amqp extends AbstractAdapter
     }
 
     /**
-     * Close the socket explicitly when destructed
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-    }
-
-    /**
      * Does a queue already exist?
      *
      * Use isSupported('isExists') to determine if an adapter can test for
@@ -366,16 +357,6 @@ class Amqp extends AbstractAdapter
     /********************************************************************
      * Supporting functions
     *********************************************************************/
-
-    /**
-     * Returns the configuration options in this adapter.
-     *
-     * @return array
-    */
-    public function getOptions()
-    {
-        return parent::getOptions();
-    }
 
     /**
      * Return a list of queue capabilities functions
