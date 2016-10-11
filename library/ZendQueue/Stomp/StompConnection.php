@@ -38,7 +38,7 @@ interface StompConnection
      * Check whether we are connected to the server
      *
      * @return true
-     * @throws \ZendQueue\Exception
+     * @throws \ZendQueue\Exception\ExceptionInterface
      */
     public function ping();
 
@@ -47,8 +47,8 @@ interface StompConnection
      *
      * example: $response = $client->write($frame)->read();
      *
-     * @param  \ZendQueue\Stomp\StompFrame $frame
-     * @return $this
+     * @param  StompFrame $frame
+     * @return StompConnection
      */
     public function write(StompFrame $frame);
 
@@ -60,8 +60,8 @@ interface StompConnection
     /**
      * reads in a frame from the socket or returns false.
      *
-     * @return \ZendQueue\Stomp\Frame|false
-     * @throws \ZendQueue\Exception
+     * @return Frame|false
+     * @throws \ZendQueue\Exception\ExceptionInterface
      */
     public function read();
 
@@ -71,7 +71,7 @@ interface StompConnection
      * This must be a \ZendQueue\Stomp\StompFrame.
      *
      * @param  string $class
-     * @return \ZendQueue\Stomp\StompConnection
+     * @return StompConnection
      */
     public function setFrameClass($class);
 

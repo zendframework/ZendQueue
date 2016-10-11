@@ -10,6 +10,7 @@
 
 namespace ZendQueue\Adapter;
 
+use ArrayIterator;
 use ZendAPI_Job;
 use ZendAPI_Queue;
 use ZendQueue\Exception;
@@ -26,7 +27,7 @@ use ZendQueue\Queue;
 class PlatformJobQueue extends AbstractAdapter
 {
     /**
-     * @var \ZendAPI_Queue
+     * @var ZendAPI_Queue
      */
     protected $_zendQueue;
 
@@ -35,7 +36,9 @@ class PlatformJobQueue extends AbstractAdapter
      *
      * @param  array|\Traversable $options
      * @param  \ZendQueue\Queue|null $queue
-     * @return void
+     * @throws Exception\ExtensionNotLoadedException
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\ConnectionException
      */
     public function __construct($options, Queue $queue = null)
     {
@@ -81,7 +84,7 @@ class PlatformJobQueue extends AbstractAdapter
      *
      * @param  string $name
      * @return boolean
-     * @throws \ZendQueue\Exception (not supported)
+     * @throws Exception\UnsupportedMethodCallException - (not supported)
      */
     public function isExists($name)
     {
@@ -94,7 +97,7 @@ class PlatformJobQueue extends AbstractAdapter
      * @param  string  $name    queue name
      * @param  integer $timeout default visibility timeout
      * @return void
-     * @throws \ZendQueue\Exception
+     * @throws Exception\UnsupportedMethodCallException
      */
     public function create($name, $timeout=null)
     {
@@ -106,7 +109,7 @@ class PlatformJobQueue extends AbstractAdapter
      *
      * @param  string $name queue name
      * @return void
-     * @throws \ZendQueue\Exception
+     * @throws Exception\UnsupportedMethodCallException
      */
     public function delete($name)
     {
@@ -117,7 +120,7 @@ class PlatformJobQueue extends AbstractAdapter
      * Get an array of all available queues
      *
      * @return void
-     * @throws \ZendQueue\Exception
+     * @throws Exception\UnsupportedMethodCallException
      */
     public function getQueues()
     {
@@ -127,8 +130,9 @@ class PlatformJobQueue extends AbstractAdapter
     /**
      * Return the approximate number of messages in the queue
      *
-     * @param  \ZendQueue\Queue|null $queue
+     * @param  Queue|null $queue
      * @return integer
+     * @throws Exception\UnsupportedMethodCallException
      */
     public function count(Queue $queue = null)
     {
@@ -146,10 +150,11 @@ class PlatformJobQueue extends AbstractAdapter
     /**
      * Send a message to the queue
      *
-     * @param  array|\ZendAPI_Job $message Message to send to the active queue
-     * @param  \ZendQueue\Queue $queue     Not supported
-     * @return \ZendQueue\Message\Message
-     * @throws \ZendQueue\Exception
+     * @param  array|ZendAPI_Job $message Message to send to the active queue
+     * @param  Queue $queue
+     * @return Message
+     * @throws Exception\UnsupportedMethodCallException
+     * @throws Exception\RuntimeException
      */
     public function send($message, Queue $queue = null)
     {
@@ -185,8 +190,8 @@ class PlatformJobQueue extends AbstractAdapter
      *
      * @param  integer    $maxMessages    Maximum number of messages to return
      * @param  integer    $timeout        Ignored
-     * @param  \ZendQueue\Queue $queue   Not supported
-     * @throws \ZendQueue\Exception
+     * @param  Queue $queue   Not supported
+     * @throws Exception\UnsupportedMethodCallException
      * @return ArrayIterator
      */
     public function receive($maxMessages = null, $timeout = null, Queue $queue = null)
@@ -216,9 +221,9 @@ class PlatformJobQueue extends AbstractAdapter
      * Returns true if the message is deleted, false if the deletion is
      * unsuccessful.
      *
-     * @param  \ZendQueue\Message $message
+     * @param  Message $message
      * @return boolean
-     * @throws \ZendQueue\Exception
+     * @throws Exception\DomainException
      */
     public function deleteMessage(Message $message)
     {
@@ -282,6 +287,7 @@ class PlatformJobQueue extends AbstractAdapter
      * Unserialize
      *
      * @return void
+     * @throws Exception\ConnectionException
      */
     public function __wakeup()
     {

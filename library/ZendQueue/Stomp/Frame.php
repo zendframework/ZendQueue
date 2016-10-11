@@ -83,8 +83,8 @@ class Frame implements StompFrame
      * Set the value on or off.
      *
      * @param boolean $auto
-     * @return $this;
-     * @throws \ZendQueue\Exception
+     * @return Frame
+     * @throws Exception\InvalidArgumentException
      */
     public function setAutoContentLength($auto)
     {
@@ -112,8 +112,8 @@ class Frame implements StompFrame
      * Throws an exception if the array values are not strings.
      *
      * @param array $headers
-     * @return $this
-     * @throws \ZendQueue\Exception
+     * @return Frame
+     * @throws Exception\ExceptionInterface
      */
     public function setHeaders(array $headers)
     {
@@ -129,8 +129,8 @@ class Frame implements StompFrame
      *
      * @param  string $header
      * @param  string $value
-     * @return \ZendQueue\Stomp\Frame
-     * @throws \ZendQueue\Exception
+     * @return Frame
+     * @throws Exception\InvalidArgumentException
      */
     public function setHeader($header, $value)
     {
@@ -154,7 +154,7 @@ class Frame implements StompFrame
      *
      * @param  string $header
      * @return string|false
-     * @throws \ZendQueue\Exception
+     * @throws Exception\InvalidArgumentException
      */
     public function getHeader($header)
     {
@@ -187,8 +187,8 @@ class Frame implements StompFrame
      * Set to null for no body.
      *
      * @param  string|null $body
-     * @return \ZendQueue\Stomp\Frame
-     * @throws \ZendQueue\Exception
+     * @return Frame
+     * @throws Exception\InvalidArgumentException
      */
     public function setBody($body)
     {
@@ -218,8 +218,8 @@ class Frame implements StompFrame
      * Set the body for this frame
      *
      * @param  string|null
-     * @return \ZendQueue\Stomp\Frame
-     * @throws \ZendQueue\Exception
+     * @return Frame
+     * @throws Exception\InvalidArgumentException
      */
     public function setCommand($command)
     {
@@ -235,7 +235,7 @@ class Frame implements StompFrame
      * Takes the current parameters and returns a Stomp Frame
      *
      * @return string
-     * @throws \ZendQueue\Exception
+     * @throws Exception\LogicException
      */
     public function toFrame()
     {
@@ -333,7 +333,7 @@ class Frame implements StompFrame
      *
      * @param string $frame - a stomp frame
      * @return string
-     * @throws \ZendQueue\Exception when the body is badly formatted
+     * @throws Exception\DomainException when the body is badly formatted
      */
     public static function extractBody($frame)
     {
@@ -353,7 +353,8 @@ class Frame implements StompFrame
      * Accepts a frame and deconstructs the frame into its component parts
      *
      * @param  string $frame - a stomp frame
-     * @return $this
+     * @return Frame
+     * @throws Exception\InvalidArgumentException
      */
     public function fromFrame($frame)
     {

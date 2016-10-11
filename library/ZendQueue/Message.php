@@ -28,7 +28,7 @@ class Message
 
      /**
      * Connected is true if we have a reference to a live
-     * \ZendQueue\Adapter object.
+     * Adapter object.
      * This is false after the Message has been deserialized.
      *
      * @var boolean
@@ -36,9 +36,9 @@ class Message
     protected $_connected = true;
 
     /**
-     * \ZendQueue\Queue parent class or instance
+     * Queue parent class or instance
      *
-     * @var \ZendQueue\Queue
+     * @var Queue
      */
     protected $_queue = null;
 
@@ -53,7 +53,7 @@ class Message
      * Constructor
      *
      * @param  array $options
-     * @throws \ZendQueue\Exception
+     * @throws Exception\InvalidArgumentException
      */
     public function __construct(array $options = array())
     {
@@ -85,7 +85,7 @@ class Message
      *
      * @param  string $key The user-specified key name.
      * @return string      The corresponding key value.
-     * @throws \ZendQueue\Exception if the $key is not a column in the message.
+     * @throws Exception\InvalidArgumentException if the $key is not a column in the message.
      */
     public function __get($key)
     {
@@ -101,7 +101,7 @@ class Message
      * @param  string $key   The message key.
      * @param  mixed  $value The value for the property.
      * @return void
-     * @throws \ZendQueue\Exception
+     * @throws Exception\InvalidArgumentException
      */
     public function __set($key, $value)
     {
@@ -162,7 +162,7 @@ class Message
      * Set the queue object, to re-establish a live connection
      * to the queue for a Message that has been de-serialized.
      *
-     * @param  \ZendQueue\Queue $queue
+     * @param  Queue $queue
      * @return boolean
      */
     public function setQueue(Queue $queue)
@@ -199,7 +199,7 @@ class Message
      * Sets all data in the row from an array.
      *
      * @param  array $data
-     * @return \ZendQueue\Message\Message Provides a fluent interface
+     * @return Message Provides a fluent interface
      */
     public function setFromArray(array $data)
     {

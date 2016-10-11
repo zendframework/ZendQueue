@@ -51,13 +51,13 @@ class Queue extends \ZendQueue\Queue
      * Send a message to the queue
      *
      * @param  \ZendQueueTest\Custom\Message|\ZendQueueTest\Custom\Messages $message message
-     * @return $this
-     * @throws Zend_Queue_Exception
+     * @return Queue
+     * @throws \ZendQueue\Exception\InvalidArgumentException
      */
     public function send($message)
     {
         if (! ($message instanceof Message || $message instanceof Messages) ) {
-            throw new \ZendQueue\Exception(
+            throw new \ZendQueue\Exception\InvalidArgumentException(
                '$message must be an instance of \ZendQueueTest\Custom\Message or \ZendQueueTest\Custom\Messages'
             );
         }

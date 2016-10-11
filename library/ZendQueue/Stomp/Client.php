@@ -89,8 +89,8 @@ class Client
     /**
      * Set client connection
      *
-     * @param \ZendQueue\Stomp\StompConnection
-     * @return void
+     * @param StompConnection
+     * @return Client
      */
     public function setConnection(StompConnection $connection)
     {
@@ -101,7 +101,7 @@ class Client
     /**
      * Get client connection
      *
-     * @return \ZendQueue\Stomp\StompConnection|null
+     * @return StompConnection|null
      */
     public function getConnection()
     {
@@ -113,7 +113,7 @@ class Client
      *
      * Returns true if the frame was successfully sent.
      *
-     * @param \ZendQueue\Stomp\StompFrame $frame
+     * @param StompFrame $frame
      * @return boolean
      */
     public function send(StompFrame $frame)
@@ -127,7 +127,7 @@ class Client
      *
      * Returns a frame or false if none were to be read.
      *
-     * @return \ZendQueue\Stomp\StompFrame|boolean
+     * @return StompFrame|boolean
      */
     public function receive()
     {
@@ -147,7 +147,7 @@ class Client
     /**
      * creates a frame class
      *
-     * @return \ZendQueue\Stomp\StompFrame
+     * @return StompFrame
      */
     public function createFrame()
     {
