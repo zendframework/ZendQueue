@@ -82,4 +82,26 @@ class MemcacheqTest extends AdapterTest
         $this->assertTrue(is_integer(Adapter\Memcacheq::DEFAULT_PORT));
         $this->assertTrue(is_string(Adapter\Memcacheq::EOL));
     }
+    
+    public function testIsExistsCompatibility()
+    {
+        $previousArrayContent = array("testCount", "testDeleteMessage", "testZendQueueAdapterConstructor", "ZF7650", "queue1", "queue", "testFactory", "foo");
+        $currentArrayContent = array("testCount 12/12", "testDeleteMessage 12/12", "testZendQueueAdapterConstructor 12/12", "ZF7650 50/2", "queue1 2/2", "queue 6/2", "testFactory 12/12", "foobar 2/2");
+    
+        $adapter = $this->getMock('ZendQueue\Adapter\Memcacheq', array('getQueues'), array(), "", false);
+        $adapter->expects($this->any())->method('getQueues')->will($this->returnValue($previousArrayContent));
+        $reflection = new \ReflectionObject($adapter);
+        $property = $reflection->getProperty("_queues");
+        $property->setAccessible(true);
+        $property->setValue($adapter, $previousArrayContent);
+    
+        $this->assertTrue($adapter->isExists("testCount"));
+        $this->assertFalse($adapter->isExists("testCountFoo"));
+    
+        $property->setValue($adapter, $currentArrayContent);
+        $this->assertTrue($adapter->isExists("testCount"));
+        $this->assertFalse($adapter->isExists("testCountFoo"));
+    
+        $this->assertFalse($adapter->isExists("foo"));
+    }
 }
