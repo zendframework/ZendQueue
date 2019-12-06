@@ -1,5 +1,9 @@
 ### ZendQueue component
 
+> ## Repository abandoned 2019-12-05
+>
+> This repository is no longer maintained.
+
 Master: [![Build Status](https://secure.travis-ci.org/zendframework/ZendQueue.png?branch=master)](http://travis-ci.org/zendframework/ZendQueue)
 
 You can install using:
